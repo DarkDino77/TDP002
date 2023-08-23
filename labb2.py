@@ -36,3 +36,13 @@ def main():
 main()
 
 '''
+
+#Uppgift 2a 
+def triangle(heigth):
+    for i in range (heigth):
+        for n in range(i):
+            print("**", end ="")
+
+        print("*")
+
+triangle(3)
