@@ -88,12 +88,14 @@ triangle(3)
 ********************* ******************** 
 ********************* ******************** 
 ********************* ******************** 
+********************* ******************** 
+
 
 '''
 def flag(scale):
-    for heigth in range (scale * 8+1):
-        for width in range(scale * 20+1):
-            if width == (scale * 20+1) // 2 :
+    for heigth in range (scale * 8):
+        for width in range(scale * 20 + 1):
+            if width == (scale * 21) // 2 :
                 print(" ", end="")
             else:
                 print("*", end="")
@@ -107,3 +109,59 @@ def flag(scale):
 
 flag(1)
 
+#2b Inköpslistan
+#Skapa listan
+def create_shopping_list():
+    return ["Kurslitteratur", "Anteckningsblock","Penna"]
+
+#Visa vad som är i listan
+def shopping_list(lista):
+    for i in range(len(lista)):
+        print(f"{i+1}.", lista[i])
+#Lägger till i listan
+def shopping_add(lista):
+     lista.append(input("Vad ska läggas till i listan? "))
+#Tar bort utan retur från listan
+def shopping_remove(lista):
+     del lista[int(input("Vilken sak vill du ta bort ur listan? "))-1]
+#Låter användaren byta ut ett element i lista mot ett annat
+def shopping_edit(lista):
+    position = int(input("Vilken sak vill du ändra på? "))-1
+    removed = lista.pop(position)
+    lista.insert(position, input(f'Vad ska det stå istället för "{removed}"? '))
+#2c
+#Skapa lista 
+lista = create_shopping_list()
+#Välkomst medelande 
+print("Välkommen till shoppinglistan, välj ett alternativ:")
+#Håller programet i gång tills användaren säger nej 
+while True:
+    #Visar alternativen till användaren
+    print("1. Skriv ut en existerande lista")
+    print("2. Lägg till ett föremål i listan")
+    print("3. Ta bort ett föremål ur listan")
+    print("4. Ändra ett föremål i listan")
+    print("5. Avsluta")
+    #Tar in val från användaren
+    operation = int(input())
+    print("")
+    #Utför valet som användaren har valt
+    #Kollar om användaren vill avsluta
+    if(operation == 5):
+        break
+    elif(operation == 4):
+        shopping_edit(lista)
+    elif(operation == 3):
+        shopping_remove(lista)
+    elif(operation == 2):
+        shopping_add(lista)
+    elif(operation == 1):
+        shopping_list(lista)
+    else:
+        #om det inte är ett siffra mellan 1-5 
+        print("Fel gör om")
+    print("")
+
+#Programet har avslutats
+print("Hej då!")
+        
