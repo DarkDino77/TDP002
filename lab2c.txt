@@ -1,0 +1,12 @@
+slist = create_shopping_list()
+shopping_list(slist)
+shopping_add(slist)
+Väska
+shopping_list(slist)
+shopping_remove(slist)
+2
+shopping_list(slist)
+shopping_edit(slist)
+2
+Anteckningsblock & Penna
+shopping_list(slist)
