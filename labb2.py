@@ -131,7 +131,7 @@ def shopping_edit(lista):
     position = int(input("Vilken sak vill du ändra på? "))-1
     removed = lista.pop(position)
     lista.insert(position, input(f'Vad ska det stå istället för "{removed}"? '))
-'''
+
 #2c
 #Skapa lista 
 lista = create_shopping_list()
@@ -168,4 +168,4 @@ while True:
 #Programet har avslutats
 print("Hej då!")
         
-'''
+
