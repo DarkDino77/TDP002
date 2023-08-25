@@ -1,0 +1,46 @@
+1. Create new complete deck with jokers (54).
+2. Split deck and sort only two colors (28).
+3. Shuffle deck.
+
+4. Move joker A down one card.
+5. Move joker B down two cards.
+6. Split decks between jokers (A, B, C).
+7. Reverse the order of splitted deck (C, B, A).
+8. Check value of bottom-most card in deck.
+   Move as many cards from top of deck to above it according to it's value.
+9. Check value of top-most card in deck.
+   Select the card that is placed from top-down according to value of top-most card.
+   The card after selected card is key.
+   If card is joker no key is selected.
+10. Save key into sequence.
+11. Repeat from step 4.
+
+Value sequence:
+Suite A = 0. Suite B = 13.
+Ace = 1,
+2 - 10,
+Jack = 11,
+Queen = 12,
+King = 13.
+Add Suite to card value.
+
+
+Encrpyt message:
+1. Strip all letters outside A-Z in message string.
+   Convert non ASCII letters to ASCII compatible letters.
+2. Convert message string to integer list.
+   A = 1, B = 2, C = 3, [...], Z = 26
+3. Convert key string to integer list.
+4. Add key integer list to message integer list.
+   If sum of both lists is greater than 26 remove 26.
+5. Convert back to letters using same algorithm.
+   A = 1, B = 2, C = 3, [...], Z = 26
+
+Decrypt message:
+1. Convert encrypted message string to integer list.
+   A = 1, B = 2, C = 3, [...], Z = 26
+2. Convert key string to integer list.
+3. Subtract key integer list from encrypted integer list.
+4. Convert decrypted integer list back to string.
+   A = 1, B = 2, C = 3, [...], Z = 26
+
