@@ -42,10 +42,9 @@ def triangle(heigth):
     for i in range (heigth):
         for n in range(i):
             print("**", end ="")
-
         print("*")
-
 triangle(3)
+print('\n')
 
 #Uppgift 2a Flagga
 #Flagga ska vara 21*9
@@ -93,22 +92,16 @@ triangle(3)
 
 '''
 def flag(scale):
-    for heigth in range (scale * 8):
-        for width in range((scale * 20)+1):
-            if width == ((scale * 20)+1) // 2 :
-                #a
-                print(" ", end="")
-
-            else:
-                print("*", end="")
-               # print(width)
-        if heigth == (scale * 8) // 2 - 1:
-            print("\n")
-        else:
-            print(" ")
-           # print(heigth)
-    
-
+	for heigth in range(scale * 9):
+		if heigth != (scale * 4):
+			for width in range(scale * 21):
+				if width == (scale * 10):
+					print(" ", end = "")
+				elif width != (scale * 21):
+					print("*", end = "")
+				else:
+					print('\n', end = "")
+		print('\n', end = "")
 flag(1)
 
 #2b Inköpslistan
