@@ -53,7 +53,7 @@ def move_card(deck, card, position):
     insert_card(deck, card, position)
     
 def get_card_at_index(deck, index):
-    return deck[1][index-1]
+    return deck[1][index]
 
 def move_index(deck, index, position):
     card = get_card_at_index(deck, index)
@@ -103,27 +103,35 @@ def section_of_deck(deck, start, end):
 def remove_index_from_deck(deck, index):
     del deck[1][index]
     
+    
 def remove_section_of_deck(deck, start, end):
-    for index in range(start, end):
+    for index in range(end -1 , start -1 , -1):
         remove_index_from_deck(deck, index)
     print(deck)
         
     
 
 def split_deck_in_3(deck):
-    firstjoker = identify_joker_index(deck)
-    section_A = section_of_deck(deck, 0, firstjoker)
-    remove_section_of_deck(deck, 0, firstjoker)
-    secondjoker = identify_joker_index(deck)
-    section_B = section_of_deck(deck, 0, secondjoker)
-    remove_section_of_deck(deck, 0, secondjoker)
+    firstJoker = identify_joker_index(deck)
+    section_A = section_of_deck(deck, 0, firstJoker)
+    remove_section_of_deck(deck, 0, firstJoker)
+    firstJoker = identify_joker_index(deck)
+    suitOfFirstJoker = get_suit(get_card_at_index(deck, firstJoker))
+    if suitOfFirstJoker == 1:
+        secondJoker = identify_joker_index_by_suit(deck, 2)
+    else:
+        secondJoker = identify_joker_index_by_suit(deck,1)
+    section_B = section_of_deck(deck, 0, secondJoker+1)
+    remove_section_of_deck(deck, 0, secondJoker+1)
     section_C = section_of_deck(deck, 0, len(deck[1]))
-    remove_section_of_deck(deck, 0, len(deck[1])-1)
+    remove_section_of_deck(deck, 0, len(deck[1]))
     hole = section_C + section_B + section_A
     deck[1].append(hole)
 
-'''    
+
+''' 
 def solitaire_keystream(length, deck):
+    deck = create_deck
     deck_shuffle(deck)
     move_joker_1(deck)
     move_joker_2(deck)
@@ -131,7 +139,14 @@ def solitaire_keystream(length, deck):
     move_cards_down(deck)
     get_letter(deck)
      
-
 '''
-
+deck = create_deck()
+deck_shuffle(deck)
+move_joker_1(deck)
+move_joker_2(deck)
+split_deck_in_3(deck)
+print(deck)
+#move_cards_down(deck)
+#get_letter(deck)
+    
 
