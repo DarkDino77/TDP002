@@ -143,12 +143,15 @@ def get_letter(deck,list_of_letters):
     if value_of_top != 27 :
         letter_value = get_value(get_card_at_index(deck, value_of_top + 1))
         #get_letter_by_value(letter_value) 
+
         list_of_letters.append(alphabet[letter_value - 1])
-        
+'''        Detta behövs inte mer 
 def print_list(list_of_letters):
     for letter in list_of_letters:
         print(letter, end="")
     print("\n")
+'''
+#SUYLZJXNHTBLBIGNQLJMBNEEUAOZKN
 
 def solitaire_keystream(length, deck):
     list_of_letters = []
@@ -159,12 +162,79 @@ def solitaire_keystream(length, deck):
         split_deck_in_3(deck)
         move_cards_down(deck)
         get_letter(deck, list_of_letters)
-    print_list(list_of_letters)
-     
+    #print("".join(list_of_letters))
+    return list_of_letters
+
+def remove_unwanted_characters(word):
+    alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    word_list = []
+    for letter in word:
+        if letter in alphabet:
+            word_list.append(letter)
+    
+    return word_list
+def cheack_value_if_exceds_accepteble_value(value):
+    if value > 26:
+        value = value - 26
+    return value
+def convert_letters_to_numbers(list_of_letters):
+    alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    list_of_values = []
+    for letter in list_of_letters:
+        value = alphabet.index(letter) + 1 
+        list_of_values.append(value)
+    return list_of_values
+
+def addition_of_values(list_of_values_1, list_of_values_2):
+    final_list_of_values = []
+    for index in range(len(list_of_values_1)):
+        value = list_of_values_1[index] + list_of_values_2[index]
+        value = cheack_value_if_exceds_accepteble_value(value)
+        final_list_of_values.append(value)
+    return final_list_of_values
+    
+def convert_values_to_letters(list_of_values):
+    alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    list_of_letters = []
+    for value in list_of_values:
+        list_of_letters.append(alphabet[value-1])
+    return list_of_letters
+
+def solitaire_encrypt(word, deck):
+    #transform_small_letters_to_large
+    word = word.upper()
+    word = remove_unwanted_characters(word)
+    key = solitaire_keystream(len(word),deck)
+    word = convert_letters_to_numbers(word)
+    key = convert_letters_to_numbers(key)
+    encrypted_values = addition_of_values(word, key)
+    encrypted_letters = convert_values_to_letters(encrypted_values)
+    
+    return "".join(encrypted_letters)
+
+def subtraktion_of_values(list_of_values_1, list_of_values_2):
+    final_list_of_values = []
+    for index in range(len(list_of_values_1)):
+        value = list_of_values_1[index] - list_of_values_2[index]
+        if value < 1 :
+            value = value + 26
+        final_list_of_values.append(value)
+    return final_list_of_values
+
+def solitatire_decrypt(encrypted_word, second_deck):
+    key = solitaire_keystream(len(encrypted_word), second_deck)
+    word = convert_letters_to_numbers(encrypted_word)
+    key = convert_letters_to_numbers(key)
+    decrypted_values = subtraktion_of_values(word, key)
+    decrypted_letters = convert_values_to_letters(decrypted_values)
+    return "".join(decrypted_letters)
 
 deck = create_deck()
-solitaire_keystream(30, deck)
-
+second_deck = create_deck()
+#solitaire_keystream(30, deck)
+encrypted_word = solitaire_encrypt("Python", deck)
+word = solitatire_decrypt(encrypted_word, second_deck)
+print(word)
 
     
 
