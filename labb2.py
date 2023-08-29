@@ -149,39 +149,41 @@ def shopping_edit(lista):
 
 #2c
 #Skapa lista 
-lista = create_shopping_list()
-#Välkomst medelande 
-print("Välkommen till shoppinglistan, välj ett alternativ:")
-#Håller programet i gång tills användaren säger nej 
-while True:
-    #Visar alternativen till användaren
-    print("1. Skriv ut en existerande lista")
-    print("2. Lägg till ett föremål i listan")
-    print("3. Ta bort ett föremål ur listan")
-    print("4. Ändra ett föremål i listan")
-    print("5. Avsluta")
-    #Tar in val från användaren
-    
-    operation = input()
-    print("")
-    #Utför valet som användaren har valt
-    #Kollar om användaren vill avsluta
-    if(operation == "5"):
-        break
-    elif(operation == "4"):
-        shopping_edit(lista)
-    elif(operation == "3"):
-        shopping_remove(lista)
-    elif(operation == "2"):
-        shopping_add(lista)
-    elif(operation == "1"):
-        shopping_list(lista)
-    else:
-        #om det inte är ett siffra mellan 1-5 
-        print("Fel gör om")
-    print("")
+def run_code(lista):
+       #Välkomst medelande 
+    print("Välkommen till shoppinglistan, välj ett alternativ:")
+    #Håller programet i gång tills användaren säger nej 
+    while True:
+        #Visar alternativen till användaren
+        print("1. Skriv ut en existerande lista")
+        print("2. Lägg till ett föremål i listan")
+        print("3. Ta bort ett föremål ur listan")
+        print("4. Ändra ett föremål i listan")
+        print("5. Avsluta")
+        #Tar in val från användaren
 
-#Programet har avslutats
-print("Hej då!")
-        
+        operation = input()
+        print("")
+        #Utför valet som användaren har valt
+        #Kollar om användaren vill avsluta
+        if(operation == "5"):
+            break
+        elif(operation == "4"):
+            shopping_edit(lista)
+        elif(operation == "3"):
+            shopping_remove(lista)
+        elif(operation == "2"):
+            shopping_add(lista)
+        elif(operation == "1"):
+            shopping_list(lista)
+        else:
+            #om det inte är ett siffra mellan 1-5 
+            print("Fel gör om")
+        print("")
+
+    #Programet har avslutats
+    print("Hej då!")
+lista = create_shopping_list()
+run_code(lista)
+
 
