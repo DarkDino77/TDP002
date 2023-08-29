@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 #-*- coding: utf-8 -*-
 import random
+import string
+
 def create_card(value, suit):
     return (value, suit)
 
@@ -30,20 +32,6 @@ def get_value(card):
 
 def get_suit(card):
     return card[1]
-
-def display_card(card):
-    
-    match get_suit(card):
-         case 1:
-              suit ="Hearts "
-         case 2:
-              suit ="Spades" 
-         case 3:
-              suit ="Diamonds"
-         case 4:
-              suit ="Clubs"
-    
-    print(f"{get_value(card)} of {suit}")
     
 def remove_card(deck, card):
     deck[1].remove(card)
@@ -138,7 +126,7 @@ def get_letter_by_value(letter_value):
 '''
 
 def get_letter(deck,list_of_letters):
-    alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    alphabet = list(string.ascii_uppercase)
     value_of_top = get_value(get_card_at_index(deck, 0))
     if value_of_top != 27 :
         letter_value = get_value(get_card_at_index(deck, value_of_top + 1))
@@ -163,10 +151,10 @@ def solitaire_keystream(length, deck):
         move_cards_down(deck)
         get_letter(deck, list_of_letters)
     #print("".join(list_of_letters))
-    return list_of_letters
+    return "".join(list_of_letters)
 
 def remove_unwanted_characters(word):
-    alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    alphabet = list(string.ascii_uppercase)
     word_list = []
     for letter in word:
         if letter in alphabet:
@@ -177,8 +165,9 @@ def cheack_value_if_exceds_accepteble_value(value):
     if value > 26:
         value = value - 26
     return value
+
 def convert_letters_to_numbers(list_of_letters):
-    alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    alphabet = list(string.ascii_uppercase)
     list_of_values = []
     for letter in list_of_letters:
         value = alphabet.index(letter) + 1 
@@ -194,7 +183,7 @@ def addition_of_values(list_of_values_1, list_of_values_2):
     return final_list_of_values
     
 def convert_values_to_letters(list_of_values):
-    alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    alphabet = list(string.ascii_uppercase)
     list_of_letters = []
     for value in list_of_values:
         list_of_letters.append(alphabet[value-1])
@@ -231,11 +220,14 @@ def solitatire_decrypt(encrypted_word, second_deck):
 
 deck = create_deck()
 second_deck = create_deck()
-#solitaire_keystream(30, deck)
-encrypted_word = solitaire_encrypt("Welcome", deck)
+key = solitaire_keystream(30, deck)
+print(key)
+deck1 = create_deck()
+second_deck = create_deck()
+encrypted_word = solitaire_encrypt("Python", deck1)
 print(encrypted_word)
 word = solitatire_decrypt(encrypted_word, second_deck)
 print(word)
 
-    
+
 
