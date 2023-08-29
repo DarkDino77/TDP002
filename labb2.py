@@ -69,49 +69,7 @@ print('\n')
 
 #Uppgift 2a Flagga
 #Flagga ska vara 21*9
-'''
-********** **********
-********** **********
-********** **********
-********** **********
 
-********** **********
-********** **********
-********** **********
-********** **********
-
- 
-********** ********** 
-********** ********** 
-********** ********** 
-********** **********
-
-********** ********** 
-********** ********** 
-********** ********** 
-********** ********** 
-
-
-******************** ******************** 
-******************** ******************** 
-******************** ******************** 
-******************** ******************** 
-******************** ******************** 
-******************** ******************** 
-******************** ******************** 
-******************** ********************
-
-******************** ******************** 
-******************** ******************** 
-******************** ******************** 
-******************** ******************** 
-******************** ******************** 
-******************** ******************** 
-******************** ******************** 
-******************** ******************** 
-
-
-'''
 def flag(scale):
 	for heigth in range(scale * 9):
 		if heigth != (scale * 4):
@@ -123,9 +81,10 @@ def flag(scale):
 				else:
 					print('\n', end = "")
 		print('\n', end = "")
-flag_size = int(input("Skriv in flagg storlek: "))
-flag(1)
+flag_size = int(input("Skriv in flaggstorlek: "))
+flag(flag_size)
 print("\n")
+
 #2b Inköpslistan
 #Skapa listan
 def create_shopping_list():
@@ -140,7 +99,11 @@ def shopping_add(lista):
      lista.append(input("Vad ska läggas till i listan? "))
 #Tar bort utan retur från listan
 def shopping_remove(lista):
-     del lista[int(input("Vilken sak vill du ta bort ur listan? "))-1]
+     
+    value = int(input("Vilken sak vill du ta bort ur listan? "))
+    if value <= len(lista):
+        del lista[value-1]
+
 #Låter användaren byta ut ett element i lista mot ett annat
 def shopping_edit(lista):
     position = int(input("Vilken sak vill du ändra på? "))-1
