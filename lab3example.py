@@ -125,33 +125,46 @@ def split_deck_in_3(deck):
     section_C = section_of_deck(deck, 0, len(deck[1]))
     remove_section_of_deck(deck, 0, len(deck[1]))
     hole = section_C + section_B + section_A
-    deck[1].append(hole)
-
+    deck[1] = hole
+ 
 def move_cards_down(deck):
-    print(len())
-    print(deck)
     valueOfBottom = get_value(get_card_at_index(deck, len(deck[1])-1))
-    print(f"Hej {valueOfBottom}")
-
-    pass
-
-''' 
-def solitaire_keystream(length, deck):
-    deck = create_deck
-    deck_shuffle(deck)
-    move_joker_1(deck)
-    move_joker_2(deck)
-    split_deck_in_3(deck)
-    move_cards_down(deck)
-    get_letter(deck)
-     
+    for i in range(valueOfBottom):
+        move_index(deck, 0, len(deck[1])-1)
 '''
+def get_letter_by_value(letter_value):
+    alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "V", "X", "Y", "Z"]
+    return alphabet[letter_value]
+'''
+
+def get_letter(deck,list_of_letters):
+    alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    value_of_top = get_value(get_card_at_index(deck, 0))
+    if value_of_top != 27 :
+        letter_value = get_value(get_card_at_index(deck, value_of_top + 1))
+        #get_letter_by_value(letter_value) 
+        list_of_letters.append(alphabet[letter_value - 1])
+        
+def print_list(list_of_letters):
+    for letter in list_of_letters:
+        print(letter, end="")
+    print("\n")
+
+def solitaire_keystream(length, deck):
+    list_of_letters = []
+    while len(list_of_letters) < length:
+        deck_shuffle(deck)  
+        move_joker_1(deck)
+        move_joker_2(deck)
+        split_deck_in_3(deck)
+        move_cards_down(deck)
+        get_letter(deck, list_of_letters)
+    print_list(list_of_letters)
+     
+
 deck = create_deck()
-deck_shuffle(deck)
-move_joker_1(deck)
-move_joker_2(deck)
-split_deck_in_3(deck)
-move_cards_down(deck)
-#get_letter(deck)
+solitaire_keystream(30, deck)
+
+
     
 
