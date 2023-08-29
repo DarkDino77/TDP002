@@ -55,6 +55,7 @@ def frame(string):
                 print("*")             
 string=input("Skriv in Sträng som ska matas in: ")
 frame(string)
+print('\n')
 
 #Uppgift 2a triangle
 def triangle(heigth):
