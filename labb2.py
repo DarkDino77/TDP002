@@ -11,7 +11,7 @@ main()
 def main():
     number = [1,2,3]
     number_reference=number.copy()
-
+main()
 #bild 3     
 def add_element(l, e):
     l.append(e)
@@ -161,6 +161,7 @@ while True:
     print("4. Ändra ett föremål i listan")
     print("5. Avsluta")
     #Tar in val från användaren
+    
     operation = int(input())
     print("")
     #Utför valet som användaren har valt

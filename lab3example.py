@@ -131,8 +131,8 @@ def get_letter(deck,list_of_letters):
     if value_of_top != 27 :
         letter_value = get_value(get_card_at_index(deck, value_of_top + 1))
         #get_letter_by_value(letter_value) 
-
-        list_of_letters.append(alphabet[letter_value - 1])
+        if letter_value != 27:
+            list_of_letters.append(alphabet[letter_value - 1])
 '''        Detta behövs inte mer 
 def print_list(list_of_letters):
     for letter in list_of_letters:
@@ -221,13 +221,13 @@ def solitatire_decrypt(encrypted_word, second_deck):
 deck = create_deck()
 second_deck = create_deck()
 key = solitaire_keystream(30, deck)
-print(key)
+print("Detta är resultaten av en 30 length key steam: " + key)
 deck1 = create_deck()
 second_deck = create_deck()
 encrypted_word = solitaire_encrypt("Python", deck1)
-print(encrypted_word)
+print("Detta är ett krypterat ord: " + encrypted_word)
 word = solitatire_decrypt(encrypted_word, second_deck)
-print(word)
+print("Detta är ett okryptterat ord: " + word)
 
 
 
