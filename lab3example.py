@@ -232,7 +232,8 @@ def solitatire_decrypt(encrypted_word, second_deck):
 deck = create_deck()
 second_deck = create_deck()
 #solitaire_keystream(30, deck)
-encrypted_word = solitaire_encrypt("Python", deck)
+encrypted_word = solitaire_encrypt("Welcome", deck)
+print(encrypted_word)
 word = solitatire_decrypt(encrypted_word, second_deck)
 print(word)
 
