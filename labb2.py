@@ -162,19 +162,19 @@ while True:
     print("5. Avsluta")
     #Tar in val från användaren
     
-    operation = int(input())
+    operation = input()
     print("")
     #Utför valet som användaren har valt
     #Kollar om användaren vill avsluta
-    if(operation == 5):
+    if(operation == "5"):
         break
-    elif(operation == 4):
+    elif(operation == "4"):
         shopping_edit(lista)
-    elif(operation == 3):
+    elif(operation == "3"):
         shopping_remove(lista)
-    elif(operation == 2):
+    elif(operation == "2"):
         shopping_add(lista)
-    elif(operation == 1):
+    elif(operation == "1"):
         shopping_list(lista)
     else:
         #om det inte är ett siffra mellan 1-5 
