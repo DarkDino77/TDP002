@@ -36,6 +36,25 @@ def main():
 main()
 
 '''
+#Uppgift 2a Frame
+def frame(string):
+     for i in range(3):
+            for n in range(len(string) + 3):
+                if i == 1:
+                    if n == 0 or n == len(string) + 2:
+                         print("*", end = " ")
+                    elif n == len(string) + 1:
+                         print(" ", end="")
+                    else:
+                         print(string[n - 1], end = "")
+                else:
+                     print("*", end = "")   
+            if i == 1 :
+                 print("")
+            else:
+                print("*")             
+string=input("Skriv in Sträng som ska matas in: ")
+frame(string)
 
 #Uppgift 2a triangle
 def triangle(heigth):
@@ -43,7 +62,8 @@ def triangle(heigth):
         for n in range(i):
             print("**", end ="")
         print("*")
-triangle(3)
+triangle_size = int(input("Skriv in höjd på triangel: "))
+triangle(triangle_size)
 print('\n')
 
 #Uppgift 2a Flagga
@@ -102,8 +122,9 @@ def flag(scale):
 				else:
 					print('\n', end = "")
 		print('\n', end = "")
+flag_size = int(input("Skriv in flagg storlek: "))
 flag(1)
-
+print("\n")
 #2b Inköpslistan
 #Skapa listan
 def create_shopping_list():

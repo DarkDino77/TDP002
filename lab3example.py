@@ -107,7 +107,6 @@ def remove_index_from_deck(deck, index):
 def remove_section_of_deck(deck, start, end):
     for index in range(end -1 , start -1 , -1):
         remove_index_from_deck(deck, index)
-    print(deck)
         
     
 
@@ -128,6 +127,13 @@ def split_deck_in_3(deck):
     hole = section_C + section_B + section_A
     deck[1].append(hole)
 
+def move_cards_down(deck):
+    print(len())
+    print(deck)
+    valueOfBottom = get_value(get_card_at_index(deck, len(deck[1])-1))
+    print(f"Hej {valueOfBottom}")
+
+    pass
 
 ''' 
 def solitaire_keystream(length, deck):
@@ -145,8 +151,7 @@ deck_shuffle(deck)
 move_joker_1(deck)
 move_joker_2(deck)
 split_deck_in_3(deck)
-print(deck)
-#move_cards_down(deck)
+move_cards_down(deck)
 #get_letter(deck)
     
 
