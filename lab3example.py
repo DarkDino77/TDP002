@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #-*- coding: utf-8 -*-
-import random
 import string
+from card_deck_adt import *
 
 def create_card(value, suit):
     return (value, suit)
@@ -95,8 +95,9 @@ def remove_index_from_deck(deck, index):
 def remove_section_of_deck(deck, start, end):
     for index in range(end -1 , start -1 , -1):
         remove_index_from_deck(deck, index)
-        
-    
+
+def length_of_deck(deck):
+    return  len(deck[1])
 
 def split_deck_in_3(deck):
     firstJoker = identify_joker_index(deck)
@@ -110,22 +111,22 @@ def split_deck_in_3(deck):
         secondJoker = identify_joker_index_by_suit(deck,1)
     section_B = section_of_deck(deck, 0, secondJoker+1)
     remove_section_of_deck(deck, 0, secondJoker+1)
-    section_C = section_of_deck(deck, 0, len(deck[1]))
-    remove_section_of_deck(deck, 0, len(deck[1]))
+    section_C = section_of_deck(deck, 0, length_of_deck(deck))
+    remove_section_of_deck(deck, 0, length_of_deck(deck))
     hole = section_C + section_B + section_A
     deck[1] = hole
  
 def move_cards_down(deck):
-    valueOfBottom = get_value(get_card_at_index(deck, len(deck[1])-1))
+    valueOfBottom = get_value(get_card_at_index(deck, length_of_deck(deck)-1))
     for i in range(valueOfBottom):
-        move_index(deck, 0, len(deck[1])-1)
+        move_index(deck, 0, length_of_deck(deck)-1)
 '''
 def get_letter_by_value(letter_value):
     alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "V", "X", "Y", "Z"]
     return alphabet[letter_value]
 '''
 
-def get_letter(deck,list_of_letters):
+def get_letter(deck, list_of_letters):
     alphabet = list(string.ascii_uppercase)
     value_of_top = get_value(get_card_at_index(deck, 0))
     if value_of_top != 27 :
