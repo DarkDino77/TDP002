@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 #-*- coding: utf-8 -*-
 import string
-from card_deck_adt import *
 
+#Import user-made module containing card/ deck functions
+from card_deck_adt import *
 
 def get_letter(deck, list_of_letters):
     alphabet = list(string.ascii_uppercase)
