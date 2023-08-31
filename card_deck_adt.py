@@ -119,13 +119,14 @@ def remove_section_of_deck(deck, start, end):
 def length_of_deck(deck):
     return len(deck[1])
 
-# 
-def identify_second_joker(deck, firstJoker):
+# Return where the second joker of the deck is
+def identify_second_joker(deck):
+    firstJoker = identify_joker_index(deck)
     suitOfFirstJoker = get_suit(get_card_at_index(deck, firstJoker))
     if suitOfFirstJoker == 1:
         return identify_joker_index_by_suit(deck, 2)
     else:
-        return identify_joker_index_by_suit(deck,1)
+        return identify_joker_index_by_suit(deck, 1)
 
 # Merge two decks together
     # Does this work? -phibr608

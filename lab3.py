@@ -5,34 +5,31 @@ import string
 #Import user-made module containing card/ deck functions
 from card_deck_adt import *
 
-def get_letter(deck, list_of_letters):
-    alphabet = list(string.ascii_uppercase)
-    value_of_top = get_value(get_card_at_index(deck, 0))
-    if value_of_top != 27 :
-        letter_value = get_value(get_card_at_index(deck, value_of_top + 1))
-        #get_letter_by_value(letter_value) 
-        if letter_value != 27:
-            list_of_letters.append(alphabet[letter_value - 1])
-'''        Detta behövs inte mer 
-def print_list(list_of_letters):
-    for letter in list_of_letters:
-        print(letter, end="")
-    print("\n")
-'''
 #SUYLZJXNHTBLBIGNQLJMBNEEUAOZKN
 
+def get_letter(deck, list_of_letters):
+    alphabet = list(string.ascii_uppercase) # Get a list of all uppercase letters
+    value_of_top = get_value(get_card_at_index(deck, 0))
+    if value_of_top != 27:
+        letter_value = get_value(get_card_at_index(deck, value_of_top + 1))
+        if letter_value != 27:
+            list_of_letters.append(alphabet[letter_value - 1])
+
 def split_deck_in_3(deck):
+
+    print(deck[1])
+
     firstJoker = identify_joker_index(deck)
+    secondJoker = identify_second_joker(deck)
+
     section_A = section_of_deck(deck, 0, firstJoker)
-    remove_section_of_deck(deck, 0, firstJoker)
-    firstJoker = identify_joker_index(deck)
-    secondJoker = identify_second_joker(deck, firstJoker)
-    section_B = section_of_deck(deck, 0, secondJoker+1)
-    remove_section_of_deck(deck, 0, secondJoker+1)
-    section_C = section_of_deck(deck, 0, length_of_deck(deck))
-    remove_section_of_deck(deck, 0, length_of_deck(deck))
-    hole = section_C + section_B + section_A
-    merge_deck(deck, hole)
+    section_B = section_of_deck(deck, firstJoker, secondJoker + 1)
+    section_C = section_of_deck(deck, secondJoker + 1, length_of_deck(deck))
+
+    print (section_A)
+    print (section_B)
+    print (section_C)
+    print (deck[1])
 
 def solitaire_keystream(length, deck):
     list_of_letters = []
@@ -53,7 +50,7 @@ def remove_unwanted_characters(word):
             word_list.append(letter)
     
     return word_list
-def cheack_value_if_exceds_accepteble_value(value):
+def check_value_exceeds_accepteble_value(value):
     if value > 26:
         value = value - 26
     return value
@@ -70,7 +67,7 @@ def addition_of_values(list_of_values_1, list_of_values_2):
     final_list_of_values = []
     for index in range(len(list_of_values_1)):
         value = list_of_values_1[index] + list_of_values_2[index]
-        value = cheack_value_if_exceds_accepteble_value(value)
+        value = check_value_exceeds_accepteble_value(value)
         final_list_of_values.append(value)
     return final_list_of_values
     
