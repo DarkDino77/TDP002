@@ -1,9 +1,9 @@
-#create the begining board
+# Create the beginning board
 # The board is a list of items where it stores secondary list of tuples
 # where the secondary list position in the first list is the y cordinate
 # And the tuple has the x  cordinate and wich peice it is information 
 '''
-# Intern representation:
+# Internal representation:
 # [
 #  y = 0 [(1, "#"), (2, "@"), (3, "#")],
 #  y = 1 [(1, "#"), (3, "#")]
