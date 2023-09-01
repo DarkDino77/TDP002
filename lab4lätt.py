@@ -206,6 +206,24 @@ def player_move_down(board):
 #chose a level
 #
 #play game 
+def main_game(board):
+    while True:
+        os.system('clear')
+        display_board(board)
+        player_decision = input("Skriv en input ")
+        match player_decision:
+            case "b":
+                print("Väl spelat")
+                break
+            case "a":
+                player_move_left(board)
+            case "d":
+                player_move_right(board)
+            case "w":
+                player_move_up(board)
+            case "s":
+                player_move_down(board)
+
 #
 #victory massage 
 #
@@ -316,20 +334,4 @@ add_wall(board, 7, 11)
 add_wall(board, 8, 11)
 add_wall(board, 9, 11)
 add_wall(board, 10, 11)
-
-while True:
-    os.system('clear')
-    display_board(board)
-    player_decision = input("Skriv en input ")
-    match player_decision:
-        case "b":
-            print("Väl spelat")
-            break
-        case "a":
-            player_move_left(board)
-        case "d":
-            player_move_right(board)
-        case "w":
-            player_move_up(board)
-        case "s":
-            player_move_down(board)
+main_game(board)
