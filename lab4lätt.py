@@ -1,3 +1,4 @@
+import os
 #create the begining board
 # The board is a list of items where it stores secondary list of tuples
 # where the secondary list position in the first list is the y cordinate
@@ -10,6 +11,7 @@
 # ]
 
 '''
+
 def create_board():
     return []
 #Adding the difrent things to the board
@@ -26,7 +28,7 @@ def add_box_in_storage(board, x, y):
     add_to_board(board, x, y, "*")
 def add_player_in_storage(board, x, y):
     add_to_board(board, x, y, "+")
-def creat_player(board, x, y):
+def create_player(board, x, y):
     add_to_board(board, x, y, "@")
 
 
@@ -49,13 +51,16 @@ def get_max_y(board):
         if max_y < elements[2] :
             max_y = elements[2] 
     return max_y
+def get_element(board, x, y):
+    for element in board:
+        if element[1] == x and element[2] == y:
+            return element
 
 def get_symbol(board, x, y):
     symbol = " "
-    for element in board:
-        if element[1] == x and element[2] == y:
-            symbol = element[0]
-        
+    element = get_element(board, x, y)
+    if element != None:
+        symbol = element[0]      
     return symbol
 
 
@@ -80,6 +85,7 @@ def get_player(board):
     for element in board:
         if element[0] == "@":
             return element
+
 def get_player_x(board):
     element = get_player(board)
     return element[1]
@@ -88,44 +94,103 @@ def get_player_y(board):
     element = get_player(board)
     return element[2]
 
-def cheack_collision(board, x, y):
+"""def cheack_collision(board, x, y):
     collision = False
     symbol = get_symbol(board, x, y)
     if symbol != " ":
         collision = True
     return collision
-        
+   """
+def cheack_collision_nonplayer(board, x, y):
+    symbol = get_symbol(board, x, y)
+    empty_position = False
+    if symbol == " ":
+        empty_position = True
+        print(empty_position)
+    return empty_position
+
+def move_left(board, current_x, current_y):
+    new_x = current_x - 1
+    empty_position = cheack_collision_nonplayer(board, new_x, current_y)
+
+
+def move_rigth(board, current_x, current_y):
+    new_x = current_x + 1
+    empty_position = cheack_collision_nonplayer(board, new_x, current_y)
+
+
+def move_up(board, current_x, current_y):
+    new_y = current_y - 1 
+    empty_position = cheack_collision_nonplayer(board, current_x, new_y)
+
+
+def move_down(board, current_x, current_y):
+    new_y = current_y + 1
+    empty_position = cheack_collision_nonplayer(board, current_x, new_y)
+
+                           
+def move_box(board, direction, x, y):
+    if direction == "left": 
+        move_left(board, x, y)
+    if direction == "rigth":
+        move_rigth(board, x, y)
+    if direction == "up":
+        move_up(board, x, y)
+    if direction == "down":
+        move_down(board, x, y)
+
+def cheack_collision_player(board, direction, x, y):
+    symbol = get_symbol(board, x, y)
+    match symbol:
+        case " ":
+            pass
+        case "o":
+            move_box(board, direction, x, y)
+            
+        case ".":
+            pass
+        case "*":
+            pass
+        case "#":
+            pass
+
 def update_player_position(board, new_x, new_y):
     player = get_player(board)
-    new_position = cheack_collision(board, new_x, new_y)
-    if new_position == False:
+    empty_position = cheack_collision_nonplayer(board, new_x, new_y)
+    if empty_position == True:
         board.remove(player)
-        creat_player(board, new_x, new_y)
-    pass
+        create_player(board, new_x, new_y)
+        player = get_player(board)
+        print(player)
+
 #user
 def player_move_left(board):
     current_x = get_player_x(board)
     current_y = get_player_y(board)
-    current_x = current_x - 1
-    update_player_position(board, current_x, current_y) 
+    new_x = current_x - 1
+    cheack_collision_player(board, "left" , new_x, current_y)
+    update_player_position(board, new_x, current_y) 
 
 def player_move_right(board):
     current_x = get_player_x(board)
     current_y = get_player_y(board)
-    current_x = current_x + 1
-    update_player_position(board, current_x, current_y)
+    new_x = current_x + 1
+    cheack_collision_player(board, "right" ,new_x,current_y)
+    update_player_position(board, new_x, current_y)
 
 def player_move_up(board):
     current_x = get_player_x(board)
     current_y = get_player_y(board)
-    current_y = current_y + 1
-    update_player_position(board, current_x, current_y)
+    new_y = current_y - 1
+    cheack_collision_player(board,"up" ,  current_x, new_y)
+    update_player_position(board, current_x, new_y)
 
 def player_move_down(board):
     current_x = get_player_x(board)
     current_y = get_player_y(board)
-    current_y = current_y - 1
-    update_player_position(board, current_x, current_y)
+    new_y = current_y + 1
+    cheack_collision_player(board, "down" , current_x, new_y)
+    update_player_position(board, current_x, new_y)
 
    
 
@@ -224,7 +289,7 @@ add_wall(board, 6, 9)
 add_wall(board, 7, 9)
 add_wall(board, 8, 9)
 add_wall(board, 10, 9)
-creat_player(board, 11, 9)
+create_player(board, 11, 9)
 add_wall(board, 12, 9)
 add_wall(board, 13, 9)
 add_storage_area(board, 16, 9)
@@ -251,6 +316,20 @@ add_wall(board, 7, 11)
 add_wall(board, 8, 11)
 add_wall(board, 9, 11)
 add_wall(board, 10, 11)
-display_board(board)
-player_move_right(board)
-display_board(board)
+
+while True:
+    os.system('clear')
+    display_board(board)
+    player_decision = input("Skriv en input ")
+    match player_decision:
+        case "b":
+            print("Väl spelat")
+            break
+        case "a":
+            player_move_left(board)
+        case "d":
+            player_move_right(board)
+        case "w":
+            player_move_up(board)
+        case "s":
+            player_move_down(board)
