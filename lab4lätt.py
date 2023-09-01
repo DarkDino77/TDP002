@@ -69,28 +69,65 @@ def display_board(board):
         for x in range(max_x+1):
             symbol = get_symbol(board, x, y) 
             print(symbol, end="")
+        print("")
 #
 #cheack a cordinate on the board
 #
 #move player
 #Make your move (a)left, (d)right, (w)up, (s)down: l
 #ADT
+def get_player(board):
+    for element in board:
+        if element[0] == "@":
+            return element
 def get_player_x(board):
-    for element in board:
-        if element[0] == "@":
-            return element[1]
+    element = get_player(board)
+    return element[1]
+
 def get_player_y(board):
-    for element in board:
-        if element[0] == "@":
-            return element[2]
+    element = get_player(board)
+    return element[2]
+
+def cheack_collision(board, x, y):
+    collision = False
+    symbol = get_symbol(board, x, y)
+    if symbol != " ":
+        collision = True
+    return collision
+        
+def update_player_position(board, new_x, new_y):
+    player = get_player(board)
+    new_position = cheack_collision(board, new_x, new_y)
+    if new_position == False:
+        board.remove(player)
+        creat_player(board, new_x, new_y)
+    pass
 #user
 def player_move_left(board):
     current_x = get_player_x(board)
     current_y = get_player_y(board)
+    current_x = current_x - 1
+    update_player_position(board, current_x, current_y) 
 
-#def player_move_right(board):
-#def player_move_up(board):    
-#def player_move_down(board):    
+def player_move_right(board):
+    current_x = get_player_x(board)
+    current_y = get_player_y(board)
+    current_x = current_x + 1
+    update_player_position(board, current_x, current_y)
+
+def player_move_up(board):
+    current_x = get_player_x(board)
+    current_y = get_player_y(board)
+    current_y = current_y + 1
+    update_player_position(board, current_x, current_y)
+
+def player_move_down(board):
+    current_x = get_player_x(board)
+    current_y = get_player_y(board)
+    current_y = current_y - 1
+    update_player_position(board, current_x, current_y)
+
+   
 
 #
 #cheack collision with player
@@ -109,23 +146,111 @@ def player_move_left(board):
 #
 
 board = create_board()
-add_wall(board, 0, 0)
-add_wall(board, 1, 0)
-add_wall(board, 2, 0)
-add_wall(board, 3, 0)
-add_wall(board, 4, 0)
-add_wall(board, 5, 0)
+#ROW 0
+for n in range(4, 9):
+    add_wall(board,n,0)
 
-add_wall(board, 0, 1)
-add_wall(board, 0, 2)
-add_wall(board, 1, 2)
-add_wall(board, 2, 2)
-add_wall(board, 3, 2)
+#ROW 1
+add_wall(board, 4, 1)
+add_wall(board, 8, 1)
+
+#ROW 2
 add_wall(board, 4, 2)
-add_wall(board, 5, 2)
-add_wall(board, 5, 1)
+add_wall(board, 8, 2)
 
-add_box(board, 2,1)
-add_storage_area(board, 4,1)
-creat_player(board, 1, 1)
+#ROW 3
+add_wall(board, 4, 3)
+add_box(board, 5, 3)
+add_wall(board, 8, 3)
+
+#ROW 4
+add_wall(board, 2, 4)
+add_wall(board, 3, 4)
+add_wall(board, 4, 4)
+add_box(board, 7, 4)
+add_wall(board, 8, 4)
+add_wall(board, 9, 4)
+
+#ROW 5
+add_wall(board, 2, 5)
+add_box(board, 5, 5)
+add_box(board, 7, 5)
+add_wall(board, 9, 5)
+
+#ROW 6
+add_wall(board, 0, 6)
+add_wall(board, 1, 6)
+add_wall(board, 2, 6)
+add_wall(board, 4, 6)
+add_wall(board, 6, 6)
+add_wall(board, 7, 6)
+add_wall(board, 9, 6)
+add_wall(board, 13, 6)
+add_wall(board, 14, 6)
+add_wall(board, 15, 6)
+add_wall(board, 16, 6)
+add_wall(board, 17, 6)
+add_wall(board, 18, 6)
+
+#ROW 7
+add_wall(board, 0, 7)
+add_wall(board, 4, 7)
+add_wall(board, 6, 7)
+add_wall(board, 7, 7)
+add_wall(board, 9, 7)
+add_wall(board, 10, 7)
+add_wall(board, 11, 7)
+add_wall(board, 12, 7)
+add_wall(board, 13, 7)
+add_storage_area(board, 16, 7)
+add_storage_area(board, 17, 7)
+add_wall(board, 18, 7)
+
+#ROW 8
+add_wall(board, 0, 8)
+add_box(board, 2, 8)
+add_box(board, 5, 8)
+add_storage_area(board, 16, 8)
+add_storage_area(board, 17, 8)
+add_wall(board,18, 8)
+
+#ROW 9
+add_wall(board, 0, 9)
+add_wall(board, 1, 9)
+add_wall(board, 2, 9)
+add_wall(board, 3, 9)
+add_wall(board, 4, 9)
+add_wall(board, 6, 9)
+add_wall(board, 7, 9)
+add_wall(board, 8, 9)
+add_wall(board, 10, 9)
+creat_player(board, 11, 9)
+add_wall(board, 12, 9)
+add_wall(board, 13, 9)
+add_storage_area(board, 16, 9)
+add_storage_area(board, 17, 9)
+add_wall(board, 18, 9)
+
+#ROW 10
+add_wall(board, 4, 10)
+add_wall(board, 10, 10)
+add_wall(board, 11, 10)
+add_wall(board, 12, 10)
+add_wall(board, 13, 10)
+add_wall(board, 14, 10)
+add_wall(board, 15, 10)
+add_wall(board, 16, 10)
+add_wall(board, 17, 10)
+add_wall(board, 18, 10)
+
+#ROW 11
+add_wall(board, 4, 11)
+add_wall(board, 5, 11)
+add_wall(board, 6, 11)
+add_wall(board, 7, 11)
+add_wall(board, 8, 11)
+add_wall(board, 9, 11)
+add_wall(board, 10, 11)
+display_board(board)
+player_move_right(board)
 display_board(board)
