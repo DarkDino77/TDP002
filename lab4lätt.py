@@ -83,7 +83,7 @@ def display_board(board):
 #ADT
 def get_player(board):
     for element in board:
-        if element[0] == "@":
+        if element[0] == "@" or element[0] == "+":
             return element
 
 def get_player_x(board):
@@ -101,97 +101,164 @@ def get_player_y(board):
         collision = True
     return collision
    """
-def cheack_collision_nonplayer(board, x, y):
+def cheack_collision_base(board, x, y):
     symbol = get_symbol(board, x, y)
     empty_position = False
     if symbol == " ":
         empty_position = True
-        print(empty_position)
     return empty_position
 
-def move_left(board, current_x, current_y):
-    new_x = current_x - 1
-    empty_position = cheack_collision_nonplayer(board, new_x, current_y)
 
-
-def move_rigth(board, current_x, current_y):
-    new_x = current_x + 1
-    empty_position = cheack_collision_nonplayer(board, new_x, current_y)
-
-
-def move_up(board, current_x, current_y):
-    new_y = current_y - 1 
-    empty_position = cheack_collision_nonplayer(board, current_x, new_y)
-
-
-def move_down(board, current_x, current_y):
-    new_y = current_y + 1
-    empty_position = cheack_collision_nonplayer(board, current_x, new_y)
-
-                           
-def move_box(board, direction, x, y):
+def box_can_move(board, direction, x, y):
     if direction == "left": 
-        move_left(board, x, y)
+        new_x = x - 1
     if direction == "rigth":
-        move_rigth(board, x, y)
+        new_x = x + 1
     if direction == "up":
-        move_up(board, x, y)
+        new_y = y - 1
     if direction == "down":
-        move_down(board, x, y)
-
-def cheack_collision_player(board, direction, x, y):
+        new_y = y + 1  
     symbol = get_symbol(board, x, y)
+    player = get_player(board)
+    if player[0] == "+":
+        add_storage_area(board, player[1], player[2])
+        pass
     match symbol:
         case " ":
             pass
         case "o":
-            move_box(board, direction, x, y)
+            pass
             
         case ".":
-            pass
+            element = get_element(board, x ,y)
+            board.remove(element)
+            board.remove(player)
+            add_player_in_storage(board, x, y)
         case "*":
             pass
         case "#":
             pass
+'''
+def move_box_left(board, current_x, current_y):
+    current_x = get_player_x(board)
+    current_y = get_player_y(board)
+    new_x = current_x - 1
+    cheack_collision_box(board, "left" , new_x, current_x , current_y)
+
+def move_box_rigth(board, current_x, current_y):
+    current_x = get_player_x(board)
+    current_y = get_player_y(board)
+    new_x = current_x - 1
+    cheack_collision_box(board, "left" , new_x, current_x , current_y)
+
+
+def move_box_up(board, current_x, current_y):
+    current_x = get_player_x(board)
+    current_y = get_player_y(board)
+    new_x = current_x - 1
+    cheack_collision_box(board, "left" , new_x, current_x , current_y)
+
+
+def move_box_down(board, current_x, current_y):
+    current_x = get_player_x(board)
+    current_y = get_player_y(board)
+    new_x = current_x - 1
+    cheack_collision_box(board, "left" , new_x, current_x , current_y)
+
+                           
+def move_box(board, direction, x, y):
+    if direction == "left": 
+        move_box_left(board, x, y)
+    if direction == "rigth":
+        move_box_rigth(board,  x, y)
+    if direction == "up":
+        move_box_up(board, x, y)
+    if direction == "down":
+        move_box_down(board, x, y)
+'''
+
+def player_can_move(board, direction, x, y):
+    symbol = get_symbol(board, x, y)
+    player = get_player(board)
+    if player[0] == "+":
+        add_storage_area(board, player[1], player[2])
+        pass
+    match symbol:
+        case " ":
+            return True
+        case "o":
+            box_movable = box_can_move(board, direction, x, y)
+            if box_movable == True:
+                move_box(board, direction, x, y)
+                return True
+            else:
+                return False
+        case ".":
+            return True
+        case "*":
+            box_movable = box_can_move(board, direction, x, y)
+            if box_movable == True:
+                move_box(board, direction, x, y)
+                return True
+            else:
+                return False
+        case "#":
+            return False
+    
+
 
 def update_player_position(board, new_x, new_y):
+    element = get_element(board, new_x ,new_y)
     player = get_player(board)
-    empty_position = cheack_collision_nonplayer(board, new_x, new_y)
-    if empty_position == True:
-        board.remove(player)
+    board.remove(player)
+    if element == None:
         create_player(board, new_x, new_y)
-        player = get_player(board)
-        print(player)
+    elif element[0] == ".":
+        board.remove(element)
+        add_player_in_storage(board, new_x, new_y) 
+    else:
+        create_player(board, new_x, new_y)
 
 #user
 def player_move_left(board):
     current_x = get_player_x(board)
     current_y = get_player_y(board)
     new_x = current_x - 1
-    cheack_collision_player(board, "left" , new_x, current_y)
-    update_player_position(board, new_x, current_y) 
+    #player_can_move(board, "left" ,new_x,current_y)
+    #update_player_position(board, new_x, current_y)
+    player_movement = player_can_move(board, "left" , new_x, current_y)
+    if player_movement == True:
+        update_player_position(board, new_x, current_y) 
 
 def player_move_right(board):
     current_x = get_player_x(board)
     current_y = get_player_y(board)
     new_x = current_x + 1
-    cheack_collision_player(board, "right" ,new_x,current_y)
-    update_player_position(board, new_x, current_y)
+    #player_can_move(board, "right" ,new_x,current_y)
+    #update_player_position(board, new_x, current_y)
+    player_movement = player_can_move(board, "left" , new_x, current_y)
+    if player_movement == True:
+        update_player_position(board, new_x, current_y) 
 
 def player_move_up(board):
     current_x = get_player_x(board)
     current_y = get_player_y(board)
     new_y = current_y - 1
-    cheack_collision_player(board,"up" ,  current_x, new_y)
-    update_player_position(board, current_x, new_y)
+    #player_can_move(board, "up" ,  current_x, new_y)
+    #update_player_position(board, current_x, new_y)
+    player_movement = player_can_move(board, "left" , current_x, new_y)
+    if player_movement == True:
+        update_player_position(board, current_x, new_y) 
 
 def player_move_down(board):
     current_x = get_player_x(board)
     current_y = get_player_y(board)
     new_y = current_y + 1
-    cheack_collision_player(board, "down" , current_x, new_y)
-    update_player_position(board, current_x, new_y)
-
+    #player_can_move(board, "down" , current_x, new_y)
+    #update_player_position(board, current_x, new_y)
+    player_movement = player_can_move(board, "left" , current_x, new_y)
+    if player_movement == True:
+        update_player_position(board, current_x, new_y) 
    
 
 #
