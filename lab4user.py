@@ -78,7 +78,6 @@ def move_box(board, direction, x, y):
     board.remove(element_old)
 
 # 
-
 #cheack collision with player
 
 def player_can_move(board, direction, x, y):
@@ -168,12 +167,12 @@ def victory(board):
 def play_level(board):
     board_copy = board.copy()
     while True: 
-        #os.system('clear')
+        os.system('clear')
         display_board(board)
         if victory(board):
             print("You are victorius")
             break 
-        print("w(up), s(down), a(left), d(right), m(main menu), r(reload), b(quit)")
+        print("w(up), s(down), a(left), d(right), m(Chose level), r(reload), b(quit)")
         key = getkey()
         match key:
             case "b":
@@ -190,69 +189,10 @@ def play_level(board):
                 main()
             case "r":
                 play_level(board_copy)
-
-                
+                break
+             
 #
 #read file 
-"""
-def make_levels(levels):
-    levels.append([])
-    #Har impoterat levels från fil till Levels varialbel
-    #read file
-    #kommer behöva ändra raden under till aceptabel linux format senare
-    with open("Levels.txt", "r", encoding="UTF-8") as f:
-        level = 0
-        counter = 0
-        for line in f: 
-            if line == "\n":
-                level += 1
-                counter = 0
-                levels.append([])
-            levels[level].insert(counter, line)
-            counter += 1
-        f.close()
-    return levels
-"""
-"""
-#
-#convert raw file imports to boards
-def convert_raw_levels_to_boards(levels):
-    temp = []
-    for level in levels:
-        board = create_board()
-        y = 0
-        for line in level:  
-               x = 0  
-               for character in line:    
-                    match character:
-                        case "o":
-                            add_box(board, x, y)
-                        case ".":
-                            add_storage_area(board, x, y)
-                        case "@":
-                            create_player(board, x, y)
-                        case "#":
-                            add_wall(board, x, y)
-                    x += 1
-               y += 1 
-        temp.append(board)       
-    return temp
-"""
-"""
-#main_game
-def main():
-    levels = []
-    levels = make_levels(levels)
-    levels = convert_raw_levels_to_boards(levels)
-    print("Available levels")
-    for i in range(len(levels)):
-        print(f"Level {i + 1}")
-    print("Press 0 to quit")
-    chosen_level = int(input("Chose a level: "))
-    if chosen_level != 0 :
-        play_level(levels[chosen_level - 1])
-
-"""
 def make_levels(path):
     levels = [[]]
     #Har impoterat levels från fil till Levels varialbel
@@ -284,7 +224,6 @@ def add_character(character,board,x,y):
         case " ":
             pass
 
-
 def make_board(path):
     levels = make_levels(path)
     board = create_board()
@@ -314,6 +253,7 @@ def available_levels():
     return levels
 
 def main():
+    os.system('clear')
     print("Available levels")
     levels = available_levels() 
     for i in levels:
