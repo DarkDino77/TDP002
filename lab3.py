@@ -6,9 +6,9 @@ from card_deck_adt import *
 
 def get_letter(deck, list_of_letters):
     alphabet = list(string.ascii_uppercase)
-    value_of_top = get_value(get_card_at_index(deck, 0))
+    value_of_top = value_of_card_at_index(deck, 0)
     if value_of_top != 27 :
-        letter_value = get_value(get_card_at_index(deck, value_of_top + 1))
+        letter_value = value_of_card_at_index(deck, value_of_top + 1)
         #get_letter_by_value(letter_value) 
         if letter_value != 27:
             list_of_letters.append(alphabet[letter_value - 1])
@@ -19,6 +19,13 @@ def print_list(list_of_letters):
     print("\n")
 '''
 #SUYLZJXNHTBLBIGNQLJMBNEEUAOZKN
+
+def move_joker(deck, joker):
+    index = index_of_card(deck, joker)
+    if index <= length_of_deck(deck):
+        move_index(deck, index, index + 1 )
+    else:
+        move_index(deck, index, 0 )
 
 def split_deck_in_3(deck):
     firstJoker = identify_joker_index(deck)
@@ -37,8 +44,9 @@ def solitaire_keystream(length, deck):
     list_of_letters = []
     deck_shuffle(deck)
     while len(list_of_letters) < length: 
-        move_joker_1(deck)
-        move_joker_2(deck)
+        move_joker(deck, "jokerA")
+        move_joker(deck, "jokerB")
+        move_joker(deck, "jokerB")
         split_deck_in_3(deck)
         move_cards_down(deck)
         get_letter(deck, list_of_letters)
@@ -52,6 +60,7 @@ def remove_unwanted_characters(word):
             word_list.append(letter)
     
     return word_list
+
 def cheack_value_if_exceds_accepteble_value(value):
     if value > 26:
         value = value - 26

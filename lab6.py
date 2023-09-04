@@ -9,15 +9,15 @@ Skriv en funktion linear_search som söker igenom en lista (haystack) efter ett 
 Funktionen ska dessutom ha möjlighet
 att ta ett tredje argument med en funktion för att specificera hur jämförelsen ska gå till.  
 """
-def linear_search(list_to_search, value, search_function = None):
-    searched = []
+def linear_search(list_to_search, value, search_function = ""):
+    searched = ""
     for record in list_to_search:
-        if search_function == None and value in record:
-            print(record)
-            searched.append(record)
-        elif search_function in record and record[search_function] == value:
-            print(record)
-            searched.append(record)
+        if search_function == "":
+            if value in record.values():
+                    searched = record
+        elif search_function != "":
+            if search_function(record) == value:
+                searched = record
     return searched
 
 imdb = [
@@ -27,5 +27,6 @@ imdb = [
 ]
 
 print(linear_search(imdb, 10, lambda e: e['score']))
+print(linear_search(imdb, 10))
 #{'title': 'Raise your voice', 'actress': 'Hilary Duff', 'score': 10}
   
