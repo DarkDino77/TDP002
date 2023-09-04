@@ -1,6 +1,6 @@
 import os
 from lab4adt import *
-#from pynput import keyboard
+from getkey import getkey, keys
 
 #player view
 #display board must be outside adt 
@@ -32,6 +32,7 @@ def box_can_move(board, direction, x, y):
     if direction == "down":
         new_y = y + 1 
         symbol = get_symbol(board, x, new_y) 
+
     match symbol:
         case " ":
             return True
@@ -39,8 +40,7 @@ def box_can_move(board, direction, x, y):
             return False
         case ".":
             return True
-        case "*":
-            
+        case "*":          
             return False
         case "#":
             return False
@@ -65,9 +65,9 @@ def move_box(board, direction, x, y):
         new_y = y + 1
         new_x = x 
         element = get_element(board, new_x ,new_y)
+        
     if symbolold == "*":
         add_storage_area(board, x, y)
-    board.remove(element_old)
     if element == None:
         add_box(board, new_x, new_y)
     elif get_symbol(board, new_x ,new_y) == ".":
@@ -75,7 +75,7 @@ def move_box(board, direction, x, y):
         add_box_in_storage(board, new_x, new_y) 
     else:
         add_box(board, new_x, new_y)
-
+    board.remove(element_old)
 
 # 
 
@@ -83,8 +83,6 @@ def move_box(board, direction, x, y):
 
 def player_can_move(board, direction, x, y):
     symbol = get_symbol(board, x, y)
-    if get_player_symbol(board) == "+":
-        add_storage_area(board, get_player_x(board), get_player_y(board))
     match symbol:
         case " ":
             return True
@@ -111,6 +109,8 @@ def player_can_move(board, direction, x, y):
 def update_player_position(board, new_x, new_y):
     element = get_element(board, new_x ,new_y)
     player = get_player(board)
+    if get_player_symbol(board) == "+":
+        add_storage_area(board, get_player_x(board), get_player_y(board))
     board.remove(player)
     if element == None:
         create_player(board, new_x, new_y)
@@ -153,17 +153,30 @@ def player_move_down(board):
     player_movement = player_can_move(board, "down" , current_x, new_y)
     if player_movement == True:
         update_player_position(board, current_x, new_y) 
-   
+
+def victory(board):
+    counter = 0
+    vic = False
+    for elemnet in board:
+        if "o" in elemnet:
+            counter += 1
+    if counter == 0:
+        vic = True
+    return vic
+
 #play the chosen level
 def play_level(board):
     board_copy = board.copy()
-    while True:
+    while True: 
         os.system('clear')
         display_board(board)
-        player_decision = input("Skriv en input ")
-        match player_decision:
+        if victory(board):
+            print("You are victorius")
+            break 
+        print("w(up), s(down), a(left), d(right), m(main menu), r(reload), b(quit)")
+        key = getkey()
+        match key:
             case "b":
-                print("Väl spelat")
                 break
             case "a":
                 player_move_left(board)
@@ -177,6 +190,7 @@ def play_level(board):
                 main()
             case "r":
                 play_level(board_copy)
+
                 
 #
 #read file 
@@ -185,7 +199,7 @@ def make_levels(levels):
     #Har impoterat levels från fil till Levels varialbel
     #read file
     #kommer behöva ändra raden under till aceptabel linux format senare
-    with open("c:/Users/denni/Desktop/code/TDP002/Levels.txt", "r", encoding="UTF-8") as f:
+    with open("Levels.txt", "r", encoding="UTF-8") as f:
         level = 0
         counter = 0
         for line in f: 
@@ -204,7 +218,6 @@ def convert_raw_levels_to_boards(levels):
     for level in levels:
         board = create_board()
         y = 0
-        x = 0
         for line in level:  
                x = 0  
                for character in line:    
@@ -221,6 +234,7 @@ def convert_raw_levels_to_boards(levels):
                y += 1 
         temp.append(board)       
     return temp
+
 #main_game
 def main():
     levels = []
@@ -229,6 +243,8 @@ def main():
     print("Available levels")
     for i in range(len(levels)):
         print(f"Level {i + 1}")
+    print("Press 0 to quit")
     chosen_level = int(input("Chose a level: "))
-    play_level(levels[chosen_level - 1])
+    if chosen_level != 0 :
+        play_level(levels[chosen_level - 1])
 main()
