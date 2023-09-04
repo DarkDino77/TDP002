@@ -82,7 +82,52 @@ cat 	Skriv ut innehållet i en fil
 
 https://docs.python.org/3/library/os.path.html
 """
+"""
+import os
 
+def lss():
+    directery = os.listdir("./")
+    for file in directery:
+        print(file)
+
+def pwd():
+    print(os.getcwd())
+
+def cat(command):
+    command = command.split(" ")
+    with open(command[-1], "r", encoding = "UTF-8") as file:
+        for row in file:
+            print(row,end="")
+        print("")
+    file.close()
+   # with open(command)
+def cds(command):
+    command = command.split(" ")
+    os.chdir(command[-1])
+
+def commands():
+    
+    command = input("command> ")
+    if command == "pwd":
+        pwd()
+        commands()
+    elif command == "ls":
+        lss()
+        commands()
+    elif "cat" in command:
+        cat(command)
+        commands()
+        pass
+    elif "cd" in command:
+        cds(command)
+        commands()
+    else:
+        print("Ogiltigt commando")
+        commands()
+
+os.system('clear')
+commands()
+"""
 #5e
 """
 Skriv en listgenererande funktion, generate_list. 
