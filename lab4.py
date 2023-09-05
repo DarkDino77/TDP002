@@ -11,26 +11,26 @@ def add_box(board, x, y):
 def add_storage(board, x, y):
     add_to_board(board, x, y, "storage")
 #
-#Display board
+# Display board
 #
-#cheack a cordinate on the board
+# cheack a cordinate on the board
 #
-#move player
-#Make your move (a)left, (d)right, (w)up, (s)down: l
+# move player
+# Make your move (a)left, (d)right, (w)up, (s)down: l
 #
-#cheack collision with player
+# cheack collision with player
 #
-#move box
+# move box
 #
-#read file 
+# read file 
 #
-#convert file.txt to board
+# convert file.txt to board
 #
-#chose a level
+# chose a level
 #
-#play game 
+# play game 
 #
-#victory massage 
+# victory massage 
 #
 
 board = create_board()
