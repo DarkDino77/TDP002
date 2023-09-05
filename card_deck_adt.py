@@ -83,11 +83,6 @@ def merge_deck(deck, hole):
 def value_of_card_at_index(deck, index):
     return get_value(get_card_at_index(deck, index))
 
-def move_cards_down(deck):
-    valueOfBottom = value_of_card_at_index(deck, length_of_deck(deck)-1)
-    for i in range(valueOfBottom):
-        move_index(deck, 0, length_of_deck(deck)-1)
-
 
 '''
 def get_letter_by_value(letter_value):

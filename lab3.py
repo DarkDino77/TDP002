@@ -55,6 +55,11 @@ def split_deck_in_3(deck):
     hole = section_C + section_B + section_A
     merge_deck(deck, hole)
 
+def move_cards_down(deck):
+    valueOfBottom = value_of_card_at_index(deck, length_of_deck(deck)-1)
+    for i in range(valueOfBottom):
+        move_index(deck, 0, length_of_deck(deck)-1)
+        
 def solitaire_keystream(length, deck):
     list_of_letters = []
     deck_shuffle(deck)
