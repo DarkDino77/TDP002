@@ -3,7 +3,6 @@
 import string
 from card_deck_adt import *
 
-
 def get_letter(deck, list_of_letters):
     alphabet = list(string.ascii_uppercase)
     value_of_top = value_of_card_at_index(deck, 0)
@@ -12,13 +11,16 @@ def get_letter(deck, list_of_letters):
         #get_letter_by_value(letter_value) 
         if letter_value != 27:
             list_of_letters.append(alphabet[letter_value - 1])
-'''        Detta behövs inte mer 
-def print_list(list_of_letters):
-    for letter in list_of_letters:
-        print(letter, end="")
-    print("\n")
-'''
+
+def move_index(deck, index, position):
+    card = get_card_at_index(deck, index)
+    move_card(deck, card, position)
+
 #SUYLZJXNHTBLBIGNQLJMBNEEUAOZKN
+def move_cards_down(deck):
+    valueOfBottom = value_of_card_at_index(deck, length_of_deck(deck)-1)
+    for i in range(valueOfBottom):
+        move_index(deck, 0, length_of_deck(deck)-1)
 
 def move_joker(deck, joker):
     index = index_of_card(deck, joker)
@@ -26,32 +28,17 @@ def move_joker(deck, joker):
         move_index(deck, index, index + 1 )
     else:
         move_index(deck, index, 0 )
-        
-def remove_section_of_deck(deck, start, end):
-    for index in range(end -1 , start -1 , -1):
-        remove_index_from_deck(deck, index)
-        
-def identify_joker_index(deck):
-    for index in range(length_of_deck(deck)):
-        if index_of_card(deck, get_card_at_index(deck, index)) == "jokerA" or index_of_card(deck, get_card_at_index(deck, index)) == "jokerB":
-            return index
-
-def identify_second_joker(deck, firstJoker):
-    if firstJoker == index_of_card(deck, "jokerA"):
-        return index_of_card(deck, "jokerB")
-    else:
-        return index_of_card(deck, "jokerA")
 
 def split_deck_in_3(deck):
     firstJoker = identify_joker_index(deck)
     section_A = section_of_deck(deck, 0, firstJoker)
-    remove_section_of_deck(deck, 0, firstJoker)
     firstJoker = identify_joker_index(deck)
-    secondJoker = identify_second_joker(deck, firstJoker)
+    secondJoker = identify_second_joker(deck,firstJoker)
+    print(firstJoker)
+    print(deck)
+    print(secondJoker)
     section_B = section_of_deck(deck, 0, secondJoker+1)
-    remove_section_of_deck(deck, 0, secondJoker+1)
     section_C = section_of_deck(deck, 0, length_of_deck(deck))
-    remove_section_of_deck(deck, 0, length_of_deck(deck))
     hole = section_C + section_B + section_A
     merge_deck(deck, hole)
 

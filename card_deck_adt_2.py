@@ -41,11 +41,6 @@ def move_card(deck, card, position):
 def get_card_at_index(deck, index):
     return deck[1][index]
 
-def move_index(deck, index, position):
-    card = get_card_at_index(deck, index)
-    remove_card(deck, card)
-    insert_card(deck, card, position)
-
 def deck_shuffle(deck):
     random.seed(10)
     random.shuffle(deck[1])
@@ -63,22 +58,22 @@ def index_of_card(deck, card):
         card = get_card_at_index(deck, identify_joker_index_by_suit(deck, 2))
     return deck[1].index(card)
 
-def identify_joker_index_by_suit(deck, suit):
+           
+def identify_joker_index(deck):
+   # print(index)
+    #print(deck)
     for card in deck[1]:
         if get_value(card) == 27:
-            if get_suit(card) == suit:
-                return index_of_card(deck, card)
-
-"""  for card in deck[1]:
-       if get_value(card) == 27:
-               return index_of_card(deck, card)"""
-      
-            
-def section_of_deck(deck, start, end):
-    return deck[1][start:end]
-
+            return index_of_card(deck, card)
+        
 def remove_index_from_deck(deck, index):
     del deck[1][index]
+
+def section_of_deck(deck, start, end):
+    temp = deck[1][start:end]
+    for index in range(end -1 , start -1 , -1):
+        remove_index_from_deck(deck, index)
+    return temp
 
 
 def length_of_deck(deck):
@@ -87,18 +82,12 @@ def length_of_deck(deck):
 def merge_deck(deck, hole):
     deck[1] = hole
 
+
 def value_of_card_at_index(deck, index):
     return get_value(get_card_at_index(deck, index))
-
-def move_cards_down(deck):
-    valueOfBottom = value_of_card_at_index(deck, length_of_deck(deck)-1)
-    for i in range(valueOfBottom):
-        move_index(deck, 0, length_of_deck(deck)-1)
-
 
 '''
 def get_letter_by_value(letter_value):
     alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "V", "X", "Y", "Z"]
     return alphabet[letter_value]
 '''
-
