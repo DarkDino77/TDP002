@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 #-*- coding: utf-8 -*-
 import random
-from card_deck_adt import *
 
 def create_card(value, suit):
     return (value, suit)
@@ -63,11 +62,6 @@ def index_of_card(deck, card):
         card = get_card_at_index(deck, identify_joker_index_by_suit(deck, 2))
     return deck[1].index(card)
 
-def identify_joker_index_by_suit(deck, suit):
-    for card in deck[1]:
-        if get_value(card) == 27:
-            if get_suit(card) == suit:
-                return index_of_card(deck, card)
 
 """  for card in deck[1]:
        if get_value(card) == 27:
@@ -79,7 +73,6 @@ def section_of_deck(deck, start, end):
 
 def remove_index_from_deck(deck, index):
     del deck[1][index]
-
 
 def length_of_deck(deck):
     return len(deck[1])

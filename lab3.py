@@ -31,9 +31,9 @@ def remove_section_of_deck(deck, start, end):
     for index in range(end -1 , start -1 , -1):
         remove_index_from_deck(deck, index)
         
-def identify_joker_index(deck):
+def identify_first_joker(deck):
     for index in range(length_of_deck(deck)):
-        if index_of_card(deck, get_card_at_index(deck, index)) == "jokerA" or index_of_card(deck, get_card_at_index(deck, index)) == "jokerB":
+        if index_of_card(deck, get_card_at_index(deck, index)) == index_of_card(deck, "jokerA") or index_of_card(deck, get_card_at_index(deck, index)) == index_of_card(deck, "jokerB"):
             return index
 
 def identify_second_joker(deck, firstJoker):
@@ -43,10 +43,10 @@ def identify_second_joker(deck, firstJoker):
         return index_of_card(deck, "jokerA")
 
 def split_deck_in_3(deck):
-    firstJoker = identify_joker_index(deck)
+    firstJoker = identify_first_joker(deck)
     section_A = section_of_deck(deck, 0, firstJoker)
     remove_section_of_deck(deck, 0, firstJoker)
-    firstJoker = identify_joker_index(deck)
+    firstJoker = identify_first_joker(deck)
     secondJoker = identify_second_joker(deck, firstJoker)
     section_B = section_of_deck(deck, 0, secondJoker+1)
     remove_section_of_deck(deck, 0, secondJoker+1)
