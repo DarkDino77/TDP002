@@ -3,7 +3,6 @@
 import string
 from card_deck_adt import *
 
-
 def get_letter(deck, list_of_letters):
     alphabet = list(string.ascii_uppercase)
     value_of_top = value_of_card_at_index(deck, 0)
@@ -19,6 +18,7 @@ def print_list(list_of_letters):
         print(letter, end="")
     print("\n")
 '''
+
 #SUYLZJXNHTBLBIGNQLJMBNEEUAOZKN
 
 def move_joker(deck, joker):
@@ -55,8 +55,8 @@ def split_deck_in_3(deck):
     remove_section_of_deck(deck, 0, secondJoker+1)
     section_C = section_of_deck(deck, 0, length_of_deck(deck))
     remove_section_of_deck(deck, 0, length_of_deck(deck))
-    hole = section_C + section_B + section_A
-    merge_deck(deck, hole)
+    whole = section_C + section_B + section_A
+    merge_deck(deck, whole)
 
 def move_cards_down(deck):
     valueOfBottom = value_of_card_at_index(deck, length_of_deck(deck)-1)
@@ -142,7 +142,6 @@ def solitatire_decrypt(encrypted_word, second_deck):
     return "".join(decrypted_letters)
 
 deck = create_deck()
-second_deck = create_deck()
 length = int(input("How long should the sipher be: " ))
 key = solitaire_keystream(length, deck)
 print(f"Detta är resultaten av en {length} length key steam: " + key)

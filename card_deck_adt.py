@@ -7,9 +7,6 @@ def create_card(value, suit):
 
 def insert_card(deck, card, position):
     deck[1].insert(position-1, card)
-    
-def place_card_on_top(deck, card):
-    insert_card(deck, card, 0)
 
 def create_deck():
     deck = ['deck', [] ]
@@ -23,7 +20,7 @@ def create_deck():
 def get_value(card):
     value = card[0]
     suit = get_suit(card)
-    if suit == 2 or value == 14 and suit == 1:
+    if suit == 2 or value == 14:
         value = value + 13
     return value
 
@@ -77,8 +74,8 @@ def remove_index_from_deck(deck, index):
 def length_of_deck(deck):
     return len(deck[1])
 
-def merge_deck(deck, hole):
-    deck[1] = hole
+def merge_deck(deck, whole):
+    deck[1] = whole
 
 def value_of_card_at_index(deck, index):
     return get_value(get_card_at_index(deck, index))
