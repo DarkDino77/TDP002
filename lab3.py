@@ -12,6 +12,7 @@ def get_letter(deck, list_of_letters):
         #get_letter_by_value(letter_value) 
         if letter_value != 27:
             list_of_letters.append(alphabet[letter_value - 1])
+            
 '''        Detta behövs inte mer 
 def print_list(list_of_letters):
     for letter in list_of_letters:
@@ -22,11 +23,10 @@ def print_list(list_of_letters):
 
 def move_joker(deck, joker):
     index = index_of_card(deck, joker)
-    if index <= length_of_deck(deck):
+    if index <= length_of_deck(deck) - 1:
         move_index(deck, index, index + 1 )
     else:
-        move_index(deck, index, 0 )
-        
+        move_index(deck, index, 1 )
 def remove_section_of_deck(deck, start, end):
     for index in range(end -1 , start -1 , -1):
         remove_index_from_deck(deck, index)
@@ -35,6 +35,9 @@ def identify_first_joker(deck):
     for index in range(length_of_deck(deck)):
         if index_of_card(deck, get_card_at_index(deck, index)) == index_of_card(deck, "jokerA") or index_of_card(deck, get_card_at_index(deck, index)) == index_of_card(deck, "jokerB"):
             return index
+"""  for card in deck[1]:
+       if get_value(card) == 27:
+               return index_of_card(deck, card)""" 
 
 def identify_second_joker(deck, firstJoker):
     if firstJoker == index_of_card(deck, "jokerA"):
