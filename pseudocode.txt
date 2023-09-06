@@ -13,7 +13,7 @@
    The card after selected card is key.
    If card is joker no key is selected.
 10. Save key into sequence.
-11. Repeat from step 4.
+11. Repeat from step 4 until the desired length of keystream is reached.
 
 Value sequence:
 Suite A = 0. Suite B = 13.
