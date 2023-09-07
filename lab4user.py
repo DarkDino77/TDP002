@@ -157,7 +157,7 @@ def victory(board):
     counter = 0
     vic = False
     for elemnet in board:
-        if "o" in elemnet:
+        if "o" in elemnet or "+" in elemnet:
             counter += 1
     if counter == 0:
         vic = True
