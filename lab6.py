@@ -20,11 +20,35 @@ def linear_search(list_to_search, value, search_function = ""):
                 searched = record
 
     return searched
-def binary_search(people, value, func = ""):
-    if func == "":
-         pass
-    
+def binary_search_no_func(people, value, left = 0 , right = 0):
+    if left <= right:
+          middle = (left + right) // 2
+          print(people[middle][value])  
+          if value == people[middle][value]:
+               return people[middle]
+          if value > people[middle].values():
+               return binary_search_no_func(people[:middle], value, left , right = len(people[:middle]))
+          elif value < people[middle].values():
+               return binary_search_no_func(people[:middle], value, left , right = len(people[:middle]))
     pass
+
+def binary_search_func(people, value, func= "", left = 0 , right = 0):
+    if left <= right:
+          middle = (left + right) // 2
+          if value == func(people[middle]):
+               return people[middle]
+          if value > func(people[middle]):
+               return binary_search_func(people[middle + 1:], value, func, left , right = len(people[middle + 1 :]))
+          elif value < func(people[middle]):
+               return binary_search_func(people[:middle], value, func, left , right = len(people[:middle]))
+    pass
+
+def binary_search(people, value, func = "", left = 0 , right = 0):
+    right = len(people) - 1 
+    if func == "":         
+         return binary_search_no_func(people,value,left,right)
+    if func != "":
+         return binary_search_func(people, value, func, left, right)
 #{'title': 'Raise your voice', 'actress': 'Hilary Duff', 'score': 10}
 def main():
     """
@@ -45,7 +69,10 @@ def main():
               {'name': 'Sara', 'age': 20},
               {'name': 'Xavier', 'age': 19}]
     # listan people är här sorterad på personernas namn      
-    binary_search(people, 'Pontus', lambda e: e['name'])
+    print(binary_search(people, 'Pontus', lambda e: e['name']))
+    #print(binary_search(people, 20))
+    print(binary_search(people, 30))
+    #print(binary_search(people, 19))
     #{'name': 'Pontus', 'age': 30}
     
 
