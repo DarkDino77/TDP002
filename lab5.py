@@ -170,10 +170,20 @@ make_filter_map ska använda funktionerna partial och
 compose från tidigare uppgifter för att sätta ihop funktionerna map och 
 filter med indatafunktionerna till det önskade resultatet. 
 """
-
+#def compose(F_a, F_b):
+ #   return lambda n: F_a(F_b(n))
+# def partial(func, data):
+#    return lambda m: func(data, m)
+def func1():
+    return 
 def make_filter_map(filter, map):
-    return lambda length: [map(i) for i in length if filter(i)]
-
+    #return lambda length: [map(i) for i in length if filter(i)]
+    func1 = compose(filter, map)
+    func2 = partial(map,1)
+    return lambda length: [func2(i) for i in length if func1(i)]
+    pass
+process = make_filter_map(lambda x: x % 2 == 1, lambda x: x * x)
+print(process(range(10)))
 #5d kvar
 
 def main():
@@ -247,4 +257,4 @@ def main():
     commands()
     #
 
-main()
+#main()
