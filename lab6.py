@@ -18,15 +18,36 @@ def linear_search(list_to_search, value, search_function = ""):
         elif search_function != "":
             if search_function(record) == value:
                 searched = record
+
     return searched
-
-imdb = [
-    {'title': 'The Rock', 'actress': 'Nicholas Cage', 'score': 11},          
-    {'title': 'Raise your voice', 'actress': 'Hilary Duff', 'score': 10},    
-    {'title': 'Black Hawk Down', 'actress': 'Eric Bana', 'score': 12},
-]
-
-print(linear_search(imdb, 10, lambda e: e['score']))
-print(linear_search(imdb, 10))
+def binary_search(people, value, func = ""):
+    if func == "":
+         pass
+    
+    pass
 #{'title': 'Raise your voice', 'actress': 'Hilary Duff', 'score': 10}
-  
+def main():
+    """
+    imdb = [
+            {'title': 'The Rock', 'actress': 'Nicholas Cage', 'score': 11},          
+            {'title': 'Raise your voice', 'actress': 'Hilary Duff', 'score': 10},    
+            {'title': 'Black Hawk Down', 'actress': 'Eric Bana', 'score': 12},
+            ]
+
+    print(linear_search(imdb, 10, lambda e: e['score']))
+    print(linear_search(imdb, 'Black Hawk Down', lambda e: e['title']))
+    print(linear_search(imdb, 'Nicholas Cage', lambda e: e['actress']))
+    print(linear_search(imdb, 11))
+    print(linear_search(imdb, "The Rock"))
+    print(linear_search(imdb, "Eric Bana"))
+    """
+    people = [{'name': 'Pontus', 'age': 30},
+              {'name': 'Sara', 'age': 20},
+              {'name': 'Xavier', 'age': 19}]
+    # listan people är här sorterad på personernas namn      
+    binary_search(people, 'Pontus', lambda e: e['name'])
+    #{'name': 'Pontus', 'age': 30}
+    
+
+
+main()

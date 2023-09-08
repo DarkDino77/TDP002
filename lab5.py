@@ -2,20 +2,15 @@
 #Uppgift 1b - Produkten av alla positiva heltal upp till och med 512
 # En funktion två lambda utryck
 #5a
-""" 
+
 def calculation(math):
     a = 1
     for i in range(2,513):
          a = math(i, a)
     return a
 
-math = lambda a, b : a + b 
-i = calculation(math)
-print(f"Summan av alla tal mellan 1 till 512 är: {i}")
-math = lambda a, b : a * b 
-i = calculation(math)
-print(f"Multiplikationen av alla tal mellan 1 till 512 är: {i}")
-"""
+
+
 #5b
 """ 
 En databas över personer som arbetar på ett företag definieras som en lista med tabeller.
@@ -23,20 +18,13 @@ En databas över personer som arbetar på ett företag definieras som en lista m
  Första argumentet till funktionen är databasen som ska genomsökas,
  andra argumentet anger vilket fält matchningen ska ske emot och tredje argumentet anger vilket värde det fältet ska ha.
  Returvärdet ska vara en lista med de poster i databasen som matchar sökningen. """
-"""
+
 def dbsearch(db, feildsearch, value):
     return [dictonary for dictonary in db if dictonary[feildsearch] == value]
 
 
-db = [
-{'name': 'Jakob', 'position': 'assistant'},
-{'name': 'Åke', 'position': 'assistant'},
-{'name': 'Ola', 'position': 'examiner'},
-{'name': 'Henrik', 'position': 'assistant'}
-]
 
-print(dbsearch(db, 'position', 'examiner'))
-"""
+
 #5c
 """
 Skriv en funktion som tar reda på om en viss lista innehåller ett visst element. 
@@ -56,14 +44,7 @@ def contains(word_to_search_for, sentencs):
         contain = True
     return contain
 
-haystack = 'Can you find the needle in this haystack?'.split()
-print(haystack)
 
-print(contains('find', haystack))
-
-print(contains('needle', haystack))
-
-print(contains('haystack', haystack))
 
 #5d
 """
@@ -84,7 +65,7 @@ cat 	Skriv ut innehållet i en fil
 
 https://docs.python.org/3/library/os.path.html
 """
-"""
+
 import os
 
 def lss():
@@ -94,7 +75,6 @@ def lss():
 
 def pwd():
     print(os.getcwd())
-    print(get_project(db,0))
 
 def cat(command):
     command = command.split(" ")
@@ -120,7 +100,6 @@ def commands():
     elif "cat" in command:
         cat(command)
         commands()
-        pass[{'id': 2, 'name': 'Dennis'}]],
     elif "cd" in command:
         cds(command)
         commands()
@@ -128,9 +107,7 @@ def commands():
         print("Ogiltigt commando")
         commands()
 
-os.system('clear')
-commands()
-"""
+
 #5e
 """
 Skriv en listgenererande funktion, generate_list. 
@@ -139,21 +116,17 @@ Funktionen som angetts som första argument ska ta ett siffervärde som enda arg
 och skall anropas så många gånger som heltalet anger, med ett ökande siffervärde varje gång. 
 Resultatet av funktionen ska läggas i en lista som slutligen returneras från generate_list.
 """
-"""
+
 def generate_list(func, length):
-    temp_list = [][{'id': 2, 'name': 'Dennis'}]],
+    temp_list = []
     for i in range(1, length + 1):
         temp_list.append(func(i))
     return temp_list
 
 def mirror(x): return x
 
-print(generate_list(mirror, 4))
-#[1, 2, 3, 4]
 def stars(n): return '*' * n
-print(generate_list(stars, 5))
-#['*', '**', '***', '****', '*****'][word for word in sentencs if word_to_search_for == word]
-"""
+
 
 #5f
 """
@@ -161,19 +134,14 @@ Skriv en funktion partial som tar en annan funktion och ett värde som indata.
 Partial ska returnera en ny funktion som gör samma sak som den angivna funktionen men där
 första argumentet till den angivna funktionen är bundet till det värde som angavs som andra argument till partial. 
 """
-"""
+
 def partial(func, data):
     return lambda m: func(data, m)
 
 
 def add(n, m): return n + m
-#...
-add_five = partial(add, 5)
-print(add_five(3))
-#8
-print(add_five(16))
-#21
-"""
+
+
 
 #5g
 """
@@ -181,7 +149,7 @@ Skriv en funktion compose som tar två funktioner som argument,
 vi kallar dem F_a och F_b, och returnerar en funktion, F_res,
 som innebär att utdata från den andra funktionen blir indata till den första, dvs F_res(x) = F_a(F_b(x)). 
 """
-"""
+
 def compose(F_a, F_b):
     return lambda n: F_a(F_b(n))
 
@@ -191,13 +159,8 @@ def multiply_five(n):
 def add_ten(x):
     return x + 10
 
-composition = compose(multiply_five, add_ten)
-print(composition(3))
-#65
-another_composition = compose(add_ten, multiply_five)
-print(another_composition(3))
-#25
-"""
+
+
 """
 Uppgift 5h - Filter the mapped result
 Skriv en funktion make_filter_map som tar en filter-funktion och en map-funktion som argument. 
@@ -207,11 +170,81 @@ make_filter_map ska använda funktionerna partial och
 compose från tidigare uppgifter för att sätta ihop funktionerna map och 
 filter med indatafunktionerna till det önskade resultatet. 
 """
-"""
+
 def make_filter_map(filter, map):
     return lambda length: [map(i) for i in length if filter(i)]
-process = make_filter_map(lambda x: x % 2 == 1, lambda x: x * x)
-print(process(range(10)))
-#[1, 9, 25, 49, 81]
-"""
+
 #5d kvar
+
+def main():
+    #5a
+    print("5a")
+    math = lambda a, b : a + b 
+    i = calculation(math)
+    print(f"Summan av alla tal mellan 1 till 512 är: {i}")
+
+    math = lambda a, b : a * b 
+    i = calculation(math)
+    print(f"Multiplikationen av alla tal mellan 1 till 512 är: {i}")
+    #
+    #5b
+    print("5b")
+    db = [
+            {'name': 'Jakob', 'position': 'assistant'},
+            {'name': 'Åke', 'position': 'assistant'},
+            {'name': 'Ola', 'position': 'examiner'},
+            {'name': 'Henrik', 'position': 'assistant'}
+            ]
+
+    print(dbsearch(db, 'position', 'examiner'))
+    #
+    #5c
+    print("5c")
+    haystack = 'Can you find the needle in this haystack?'.split()
+    print(haystack)
+
+    print(contains('find', haystack))
+
+    print(contains('needle', haystack))
+
+    print(contains('haystack', haystack))
+    #
+    #5e
+    print("5e")
+    print(generate_list(mirror, 4))
+    #[1, 2, 3, 4]
+    print(generate_list(stars, 5))
+    #['*', '**', '***', '****', '*****'][word for word in sentencs if word_to_search_for == word]
+    #
+    #5f
+    #...
+    print("5f")
+    add_five = partial(add, 5)
+    print(add_five(3))
+    #8
+    print(add_five(16))
+    #21
+    #
+    #5g
+    print("5g")
+    composition = compose(multiply_five, add_ten)
+    print(composition(3))
+    #65
+    another_composition = compose(add_ten, multiply_five)
+    print(another_composition(3))
+    #25
+    #
+    #5h
+    print("5h")
+    process = make_filter_map(lambda x: x % 2 == 1, lambda x: x * x)
+    print(process(range(10)))
+    #[1, 9, 25, 49, 81]
+    #
+    #5d
+    print("5d")
+    wait = input("Starta commando programet")
+    os.system('clear')
+    commands()
+    #
+
+main()
