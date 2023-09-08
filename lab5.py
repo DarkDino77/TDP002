@@ -25,13 +25,8 @@ En databas över personer som arbetar på ett företag definieras som en lista m
  Returvärdet ska vara en lista med de poster i databasen som matchar sökningen. """
 """
 def dbsearch(db, feildsearch, value):
-    search_result = []
-    for record in db:
-        print(record)
-        if feildsearch in record and record[feildsearch] == value:
-            search_result.append(record)
+    return [dictonary for dictonary in db if dictonary[feildsearch] == value]
 
-    return search_result
 
 db = [
 {'name': 'Jakob', 'position': 'assistant'},
@@ -53,6 +48,13 @@ def contains(word_to_search_for, sentencs):
         if word == word_to_search_for:
             contain = True
     return contain
+"""
+
+def contains(word_to_search_for, sentencs):
+    contain = False
+    if [word for word in sentencs if word_to_search_for == word]:
+        contain = True
+    return contain
 
 haystack = 'Can you find the needle in this haystack?'.split()
 print(haystack)
@@ -62,7 +64,7 @@ print(contains('find', haystack))
 print(contains('needle', haystack))
 
 print(contains('haystack', haystack))
-"""
+
 #5d
 """
 Den här uppgiften går ut på att konstruera ett simpelt kommando-system
@@ -92,6 +94,7 @@ def lss():
 
 def pwd():
     print(os.getcwd())
+    print(get_project(db,0))
 
 def cat(command):
     command = command.split(" ")
@@ -117,7 +120,7 @@ def commands():
     elif "cat" in command:
         cat(command)
         commands()
-        pass
+        pass[{'id': 2, 'name': 'Dennis'}]],
     elif "cd" in command:
         cds(command)
         commands()
@@ -138,7 +141,7 @@ Resultatet av funktionen ska läggas i en lista som slutligen returneras från g
 """
 """
 def generate_list(func, length):
-    temp_list = []
+    temp_list = [][{'id': 2, 'name': 'Dennis'}]],
     for i in range(1, length + 1):
         temp_list.append(func(i))
     return temp_list
@@ -149,7 +152,7 @@ print(generate_list(mirror, 4))
 #[1, 2, 3, 4]
 def stars(n): return '*' * n
 print(generate_list(stars, 5))
-#['*', '**', '***', '****', '*****']
+#['*', '**', '***', '****', '*****'][word for word in sentencs if word_to_search_for == word]
 """
 
 #5f
