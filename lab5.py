@@ -174,14 +174,14 @@ filter med indatafunktionerna till det önskade resultatet.
  #   return lambda n: F_a(F_b(n))
 # def partial(func, data):
 #    return lambda m: func(data, m)
-def make_filter_map(uneven, square):
+def make_filter_map(filter_condition, map_condition):
     #return lambda length: [map(i) for i in length if filter(i)]
     
-    assigend_square_to_map = partial(map, square)
-    assigend_uneven_to_filter = partial(filter, uneven)
-    cheack_if_uneven_and_square_it = compose(assigend_uneven_to_filter, assigend_square_to_map)
+    assigend_condition_to_map = partial(map, map_condition)
+    assigend_condition_to_filter = partial(filter, filter_condition)
+    cheack_if_filter_on_map = compose(assigend_condition_to_filter, assigend_condition_to_map)
 
-    return lambda length: list(cheack_if_uneven_and_square_it(i for i in length ))
+    return lambda length: list(cheack_if_filter_on_map(i for i in length ))
   # printed value [1, 9, 25, 49, 81]
 #5d kvar
 
