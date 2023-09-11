@@ -81,7 +81,7 @@ def partion(db, low , high, func):
     pivot = func(db[high]) 
     j = low - 1
     for i in range(low, high):    
-        if func(db[i]) <= pivot:
+        if func(db[i]) < pivot or (func(db[i]) == pivot and db[i] <= db[high]):
             j += 1
             db[i], db[j] = db[j], db[i]
     db[j + 1], db[high] = db[high], db[j + 1]
@@ -97,9 +97,9 @@ def quicksort(db, func, low = 0, high = None):
 
     
 def main():
-    #5a
+    #6a
     """
-    print("5a")
+    print("6a")
     imdb = [
             {'title': 'The Rock', 'actress': 'Nicholas Cage', 'score': 11},          
             {'title': 'Raise your voice', 'actress': 'Hilary Duff', 'score': 10},    
@@ -113,10 +113,10 @@ def main():
     print(linear_search(imdb, "The Rock"))
     print(linear_search(imdb, "Eric Bana"))
     """
-    #5b
+    #6b
     """
     print("")
-    print("5b")
+    print("6b")
     people = [{'name': 'Pontus', 'age': 30},
               {'name': 'Sara', 'age': 20},
               {'name': 'Xavier', 'age': 19}]
@@ -129,10 +129,10 @@ def main():
     print(binary_search(people, 19))
     #{'name': 'Pontus', 'age': 30}
     """
-    #5c
+    #6c
     """
     print("")
-    print("5c")
+    print("6c")
     db = [
         ('j', 'g'), ('a', 'u'), ('k', 'l'), ('o', 'i'),
         ('b', 's'), ('@', '.'), ('p', 's'), ('o', 'e')
@@ -144,10 +144,10 @@ def main():
     dbb = insertion_sort(db,lambda e: e[1])
     print(dbb)
     """
-    #5d
+    #6d
     
     print("")
-    print("5d")
+    print("6d")
     db = [
         ('j', 'g'), ('a', 'u'), ('k', 'l'), ('o', 'i'),
         ('b', 's'), ('@', '.'), ('p', 's'), ('o', 'e')
@@ -161,5 +161,8 @@ def main():
     print(db)
     #quicksort(db,lambda e: e[1])
     print(dba)
+    
+    #6e 
+
 if __name__ == "__main__":    
     main()
