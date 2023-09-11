@@ -134,9 +134,9 @@ Skriv en funktion partial som tar en annan funktion och ett värde som indata.
 Partial ska returnera en ny funktion som gör samma sak som den angivna funktionen men där
 första argumentet till den angivna funktionen är bundet till det värde som angavs som andra argument till partial. 
 """
-
-def partial(func, data):
-    return lambda m: func(data, m)
+#detta käns fel
+def partial(func, *args):
+    return lambda *args2: func(*args, *args2)
 
 
 def add(n, m): return n + m
@@ -151,7 +151,7 @@ som innebär att utdata från den andra funktionen blir indata till den första,
 """
 
 def compose(F_a, F_b):
-    return lambda n: F_a(F_b(n))
+    return lambda *args: F_a(F_b(*args))
 
 def multiply_five(n):
    return n * 5
@@ -174,16 +174,15 @@ filter med indatafunktionerna till det önskade resultatet.
  #   return lambda n: F_a(F_b(n))
 # def partial(func, data):
 #    return lambda m: func(data, m)
-def func1():
-    return 
-def make_filter_map(filter, map):
+def make_filter_map(filter_func, map_func):
     #return lambda length: [map(i) for i in length if filter(i)]
-    func1 = compose(filter, map)
-    func2 = partial(map,1)
-    return lambda length: [func2(i) for i in length if func1(i)]
-    pass
+    func1 = compose(filter_func, map_func)
+    func2 = partial(map_func)
+    funcfinal = lambda length: [func2(i) for i in length if func1(i)]
+    return funcfinal
 process = make_filter_map(lambda x: x % 2 == 1, lambda x: x * x)
 print(process(range(10)))
+  # printed value [1, 9, 25, 49, 81]
 #5d kvar
 
 def main():
@@ -257,4 +256,4 @@ def main():
     commands()
     #
 
-#main()
+main()
