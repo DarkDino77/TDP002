@@ -145,24 +145,21 @@ def main():
     print(dbb)
     """
     #6d
-    
+    """
     print("")
     print("6d")
     db = [
         ('j', 'g'), ('a', 'u'), ('k', 'l'), ('o', 'i'),
         ('b', 's'), ('@', '.'), ('p', 's'), ('o', 'e')
         ] 
-    #dba = quicksort(db,lambda e: e[0])
-    #print(dba)
-    #dbc = quicksort(db)
     dba = db.copy()
     quicksort(db,lambda e: e[0])
     quicksort(dba,lambda e: e[1])
     print(db)
-    #quicksort(db,lambda e: e[1])
     print(dba)
-    
+    """
     #6e 
+
 
 if __name__ == "__main__":    
     main()
