@@ -161,5 +161,5 @@ def main():
     print(db)
     #quicksort(db,lambda e: e[1])
     print(dba)
-
-main()
+if __name__ == "__main__":    
+    main()

@@ -266,4 +266,6 @@ def main():
         board = make_board(path)
         play_level(board)
 
-main()
+        
+if __name__ == "__main__":    
+    main()
