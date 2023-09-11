@@ -76,10 +76,30 @@ def insertion_sort(db, func = ""):
                 dba[j], dba[j-1] = dba[j-1], dba[j]
                 j -= 1
     return dba
-    pass
+
+def partion(db, low , high, func):
+    pivot = func(db[high]) 
+    j = low - 1
+    for i in range(low, high):    
+        if func(db[i]) <= pivot:
+            j += 1
+            db[i], db[j] = db[j], db[i]
+    db[j + 1], db[high] = db[high], db[j + 1]
+    return j + 1
+
+def quicksort(db, func, low = 0, high = None):
+    if high == None:
+        high = len(db) - 1
+    if low < high:
+        pivot = partion(db, low, high, func)
+        quicksort(db, func, low, pivot-1)
+        quicksort(db, func, pivot + 1, high)
+
     
 def main():
+    #5a
     """
+    print("5a")
     imdb = [
             {'title': 'The Rock', 'actress': 'Nicholas Cage', 'score': 11},          
             {'title': 'Raise your voice', 'actress': 'Hilary Duff', 'score': 10},    
@@ -93,7 +113,10 @@ def main():
     print(linear_search(imdb, "The Rock"))
     print(linear_search(imdb, "Eric Bana"))
     """
+    #5b
     """
+    print("")
+    print("5b")
     people = [{'name': 'Pontus', 'age': 30},
               {'name': 'Sara', 'age': 20},
               {'name': 'Xavier', 'age': 19}]
@@ -106,6 +129,10 @@ def main():
     print(binary_search(people, 19))
     #{'name': 'Pontus', 'age': 30}
     """
+    #5c
+    """
+    print("")
+    print("5c")
     db = [
         ('j', 'g'), ('a', 'u'), ('k', 'l'), ('o', 'i'),
         ('b', 's'), ('@', '.'), ('p', 's'), ('o', 'e')
@@ -116,8 +143,23 @@ def main():
     print(dbc)
     dbb = insertion_sort(db,lambda e: e[1])
     print(dbb)
-
-
-
+    """
+    #5d
+    
+    print("")
+    print("5d")
+    db = [
+        ('j', 'g'), ('a', 'u'), ('k', 'l'), ('o', 'i'),
+        ('b', 's'), ('@', '.'), ('p', 's'), ('o', 'e')
+        ] 
+    #dba = quicksort(db,lambda e: e[0])
+    #print(dba)
+    #dbc = quicksort(db)
+    dba = db.copy()
+    quicksort(db,lambda e: e[0])
+    quicksort(dba,lambda e: e[1])
+    print(db)
+    #quicksort(db,lambda e: e[1])
+    print(dba)
 
 main()
