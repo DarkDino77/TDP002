@@ -60,6 +60,24 @@ def binary_search(people, value, func = "", left = 0 , right = 0):
     if func != "":
          return binary_search_func(people, value, func, left, right)
     
+
+def insertion_sort(db, func = ""):
+    dba = db.copy()
+    if func == "":
+        for i in range(len(dba)):
+            j = i
+            while j > 0 and dba[j - 1] > dba[j]:
+                dba[j], dba[j-1] = dba[j-1], dba[j]
+                j -= 1
+    if func != "":            
+        for i in range(len(dba)):
+            j = i
+            while j > 0 and (func(dba[j - 1]) > func(dba[j]) or (func(dba[j - 1]) == func(dba[j]) and dba[j - 1] > dba[j] )):
+                dba[j], dba[j-1] = dba[j-1], dba[j]
+                j -= 1
+    return dba
+    pass
+    
 def main():
     """
     imdb = [
@@ -75,6 +93,7 @@ def main():
     print(linear_search(imdb, "The Rock"))
     print(linear_search(imdb, "Eric Bana"))
     """
+    """
     people = [{'name': 'Pontus', 'age': 30},
               {'name': 'Sara', 'age': 20},
               {'name': 'Xavier', 'age': 19}]
@@ -86,7 +105,19 @@ def main():
     print(binary_search(people, 30))
     print(binary_search(people, 19))
     #{'name': 'Pontus', 'age': 30}
-    
+    """
+    db = [
+        ('j', 'g'), ('a', 'u'), ('k', 'l'), ('o', 'i'),
+        ('b', 's'), ('@', '.'), ('p', 's'), ('o', 'e')
+        ] 
+    dba = insertion_sort(db,lambda e: e[0])
+    print(dba)
+    dbc = insertion_sort(db)
+    print(dbc)
+    dbb = insertion_sort(db,lambda e: e[1])
+    print(dbb)
+
+
 
 
 main()
