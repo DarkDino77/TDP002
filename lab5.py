@@ -135,8 +135,8 @@ Partial ska returnera en ny funktion som gör samma sak som den angivna funktion
 första argumentet till den angivna funktionen är bundet till det värde som angavs som andra argument till partial. 
 """
 #detta käns fel
-def partial(func, *args):
-    return lambda *args2: func(*args, *args2)
+def partial(func, data):
+    return lambda m: func(data, m)
 
 
 def add(n, m): return n + m
@@ -151,7 +151,7 @@ som innebär att utdata från den andra funktionen blir indata till den första,
 """
 
 def compose(F_a, F_b):
-    return lambda *args: F_a(F_b(*args))
+    return lambda m: F_a(F_b(m))
 
 def multiply_five(n):
    return n * 5
@@ -174,14 +174,14 @@ filter med indatafunktionerna till det önskade resultatet.
  #   return lambda n: F_a(F_b(n))
 # def partial(func, data):
 #    return lambda m: func(data, m)
-def make_filter_map(filter_func, map_func):
+def make_filter_map(uneven, square):
     #return lambda length: [map(i) for i in length if filter(i)]
-    func1 = compose(filter_func, map_func)
-    func2 = partial(map_func)
-    funcfinal = lambda length: [func2(i) for i in length if func1(i)]
-    return funcfinal
-process = make_filter_map(lambda x: x % 2 == 1, lambda x: x * x)
-print(process(range(10)))
+    
+    assigend_square_to_map = partial(map, square)
+    assigend_uneven_to_filter = partial(filter, uneven)
+    cheack_if_uneven_and_square_it = compose(assigend_uneven_to_filter, assigend_square_to_map)
+
+    return lambda length: list(cheack_if_uneven_and_square_it(i for i in length ))
   # printed value [1, 9, 25, 49, 81]
 #5d kvar
 
@@ -197,6 +197,7 @@ def main():
     print(f"Multiplikationen av alla tal mellan 1 till 512 är: {i}")
     #
     #5b
+    print("")
     print("5b")
     db = [
             {'name': 'Jakob', 'position': 'assistant'},
@@ -208,9 +209,9 @@ def main():
     print(dbsearch(db, 'position', 'examiner'))
     #
     #5c
+    print("")
     print("5c")
     haystack = 'Can you find the needle in this haystack?'.split()
-    print(haystack)
 
     print(contains('find', haystack))
 
@@ -219,6 +220,7 @@ def main():
     print(contains('haystack', haystack))
     #
     #5e
+    print("")
     print("5e")
     print(generate_list(mirror, 4))
     #[1, 2, 3, 4]
@@ -227,6 +229,7 @@ def main():
     #
     #5f
     #...
+    print("")
     print("5f")
     add_five = partial(add, 5)
     print(add_five(3))
@@ -235,6 +238,7 @@ def main():
     #21
     #
     #5g
+    print("")
     print("5g")
     composition = compose(multiply_five, add_ten)
     print(composition(3))
@@ -244,12 +248,14 @@ def main():
     #25
     #
     #5h
+    print("")
     print("5h")
     process = make_filter_map(lambda x: x % 2 == 1, lambda x: x * x)
     print(process(range(10)))
     #[1, 9, 25, 49, 81]
     #
     #5d
+    print("")
     print("5d")
     wait = input("Starta commando programet")
     os.system('clear')
