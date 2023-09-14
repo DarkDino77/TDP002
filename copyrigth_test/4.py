@@ -1,0 +1,7 @@
+Hello
+# BEGIN COPYRIGHT 
+1
+2
+3
+# END COPYRIGHT
+Men in detta
