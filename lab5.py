@@ -1,3 +1,6 @@
+#! /usr/bin/env python3
+#-*- coding: utf-8 -*-
+
 #Uppgift 1a - Summera alla naturliga tal upp till och med 512 
 #Uppgift 1b - Produkten av alla positiva heltal upp till och med 512
 # En funktion två lambda utryck
@@ -21,9 +24,6 @@ En databas över personer som arbetar på ett företag definieras som en lista m
 
 def dbsearch(db, feildsearch, value):
     return [dictonary for dictonary in db if dictonary[feildsearch] == value]
-
-
-
 
 #5c
 """
@@ -264,3 +264,6 @@ def main():
 
 if __name__ == "__main__":    
     main()
+
+
+

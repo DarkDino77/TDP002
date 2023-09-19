@@ -3,14 +3,7 @@
 # The board is a list of items where it stores secondary list of tuples
 # where the secondary list position in the first list is the y cordinate
 # And the tuple has the x  cordinate and wich peice it is information 
-'''
-# Intern representation:
-# [
-#  y = 0 [(1, "#"), (2, "@"), (3, "#")],
-#  y = 1 [(1, "#"), (3, "#")]
-# ]
 
-'''
 
 def create_board():
     return []
@@ -51,6 +44,7 @@ def get_max_y(board):
         if max_y < elements[2] :
             max_y = elements[2] 
     return max_y
+
 def get_element(board, x, y):
     for element in board:
         if element[1] == x and element[2] == y:

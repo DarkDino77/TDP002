@@ -5,13 +5,15 @@ from getkey import getkey, keys
 #player view
 #display board must be outside adt 
 def display_board(board):
+    output = ""
     max_x = get_max_x(board) 
     max_y = get_max_y(board) 
     for y in range(max_y+1):
         for x in range(max_x+1):
             symbol = get_symbol(board, x, y) 
-            print(symbol, end="")
-        print("")
+            output += symbol 
+        output += "\n"
+    print(output)
 #
 #cheack a cordinate on the board
 #
