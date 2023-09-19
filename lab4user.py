@@ -13,7 +13,7 @@ def display_board(board):
             symbol = get_symbol(board, x, y) 
             output += symbol 
         output += "\n"
-    print(output)
+    return output
 #
 #cheack a cordinate on the board
 #
@@ -155,23 +155,24 @@ def player_move_down(board):
     if player_movement == True:
         update_player_position(board, current_x, new_y) 
 
-def victory(board):
+def victory(displayed):
     counter = 0
-    vic = False
-    for elemnet in board:
-        if "o" in elemnet or "+" in elemnet:
+    victory = False
+    
+    if "o" in displayed :
             counter += 1
     if counter == 0:
-        vic = True
-    return vic
+        victory = True
+    return victory
 
 #play the chosen level
 def play_level(board):
     board_copy = board.copy()
     while True: 
         os.system('clear')
-        display_board(board)
-        if victory(board):
+        displayed = display_board(board)
+        print(displayed)
+        if victory( displayed):
             print("You are victorius")
             break 
         print("w(up), s(down), a(left), d(right), m(Chose level), r(reload), b(quit)")
