@@ -28,7 +28,11 @@ def dbsearch(db, feildsearch, value):
 #5c
 """
 Skriv en funktion som tar reda på om en viss lista innehåller ett visst element. 
-Du får inte använda dig av Pythons in-operator! """
+Du får inte använda dig av Pythons in-operator!
+(nyckelordet in används i flera sammanhang än som en operator, 
+det är ok att ha med nyckelordet för att skapa en for-loop, 
+men du får inte använda det för att kontrollera om ett viss element finns i listan).  
+"""
 """
 def contains(word_to_search_for, sentencs):
     contain = False
@@ -37,13 +41,25 @@ def contains(word_to_search_for, sentencs):
             contain = True
     return contain
 """
-
+"""
 def contains(word_to_search_for, sentencs):
-    contain = False
     if [word for word in sentencs if word_to_search_for == word]:
-        contain = True
-    return contain
+        return True
+    return False
+"""
+def contains(word_to_search_for, sentencs):
+    return next((True for word in sentencs if word_to_search_for == word), False)
 
+"""
+def contains(word_to_search_for, sentences):
+    i = 0
+    while(i < len(sentences)):
+        if sentences[i] == word_to_search_for:
+            return True
+        else:
+            i += 1
+    return False
+"""
 
 
 #5d
@@ -68,7 +84,7 @@ https://docs.python.org/3/library/os.path.html
 
 import os
 
-def lss():
+def ls():
     directery = os.listdir("./")
     for file in directery:
         print(file)
@@ -84,7 +100,7 @@ def cat(command):
         print("")
     file.close()
    # with open(command)
-def cds(command):
+def cd(command):
     command = command.split(" ")
     os.chdir(command[-1])
 
@@ -95,14 +111,16 @@ def commands():
         pwd()
         commands()
     elif command == "ls":
-        lss()
+        ls()
         commands()
     elif "cat" in command:
         cat(command)
         commands()
     elif "cd" in command:
-        cds(command)
+        cd(command)
         commands()
+    elif "exit" in command:
+        pass
     else:
         print("Ogiltigt commando")
         commands()
@@ -204,9 +222,10 @@ def main():
             {'name': 'Åke', 'position': 'assistant'},
             {'name': 'Ola', 'position': 'examiner'},
             {'name': 'Henrik', 'position': 'assistant'}
-            ]
+        ]
 
     print(dbsearch(db, 'position', 'examiner'))
+    print(dbsearch(db, 'position', 'assistant'))
     #
     #5c
     print("")
@@ -225,7 +244,7 @@ def main():
     print(generate_list(mirror, 4))
     #[1, 2, 3, 4]
     print(generate_list(stars, 5))
-    #['*', '**', '***', '****', '*****'][word for word in sentencs if word_to_search_for == word]
+    #['*', '**', '***', '****', '*****']
     #
     #5f
     #...

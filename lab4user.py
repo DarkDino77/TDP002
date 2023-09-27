@@ -156,14 +156,9 @@ def player_move_down(board):
         update_player_position(board, current_x, new_y) 
 
 def victory(displayed):
-    counter = 0
-    victory = False
-    
     if "o" in displayed :
-            counter += 1
-    if counter == 0:
-        victory = True
-    return victory
+        return False
+    return True
 
 #play the chosen level
 def play_level(board):
@@ -172,7 +167,7 @@ def play_level(board):
         os.system('clear')
         displayed = display_board(board)
         print(displayed)
-        if victory( displayed):
+        if victory(displayed):
             print("You are victorius")
             break 
         print("w(up), s(down), a(left), d(right), m(Chose level), r(reload), b(quit)")
