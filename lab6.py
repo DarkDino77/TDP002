@@ -1,33 +1,19 @@
 #! /usr/bin/env python3
+import re, os, sys
 
-"""
- Uppgift 6a - Linjärsökning
-
-Linjärsökning är den simplaste formen av sökning ni kan tänka er. 
-Det går helt enkelt ut på att ni börjar söka från början av listan och
-slutar när ni hittar elementet ni letar efter eller kommer till slutet av listan.
-Linjärsökning har fördelen att den även fungerar för osorterad data.
-Skriv en funktion linear_search som söker igenom en lista (haystack) efter ett specifikt värde (needle). 
-Funktionen ska dessutom ha möjlighet
-att ta ett tredje argument med en funktion för att specificera hur jämförelsen ska gå till.  
-"""
-import re
-import os
-import sys
-
-def linear_search(list_to_search, value, search_function = ""):
-    searched = ""
+# Uppgift 6a - Linjärsökning
+def linear_search(list_to_search, value, search_function = None):
     for record in list_to_search:
-        if search_function == "":
-            if value in record.values():
-                    searched = record
-        elif search_function != "":
+        if search_function != None:
             if search_function(record) == value:
-                searched = record
+                return record
+        else:
+            if value in record.values():
+                return record
+    return ""
 
-    return searched
-    
-def binary_search_no_func(people, value, left = 0 , right = 0):
+# 6b    
+def binary_search_no_func(people, value, left = 0, right = 0):
     if right == 0:
         right = len(people) - 1
     if left <= right:
@@ -42,9 +28,8 @@ def binary_search_no_func(people, value, left = 0 , right = 0):
                     elif value > finding:
                         return binary_search_no_func(people[:middle], value, left , right = len(people[:middle]))
     return None
-                    
 
-def binary_search_func(people, value, func= "", left = 0 , right = 0):
+def binary_search_func_new(people, value, func = "", left = 0, right = 0):
     if right == 0:
         right = len(people) - 1
     if left <= right:
@@ -52,37 +37,52 @@ def binary_search_func(people, value, func= "", left = 0 , right = 0):
           if value == func(people[middle]):
                return people[middle]
           if value > func(people[middle]):
-               return binary_search_func(people[middle + 1:], value, func, left , right = len(people[middle + 1 :]))
+               return binary_search_func(people[middle + 1:], value, func, left, right = len(people[middle + 1:]))
+          elif value < func(people[middle]):
+               return binary_search_func(people[:middle], value, func, left , right = len(people[:middle]))
+    return None                    
+
+def binary_search_func(people, value, func = "", left = 0, right = 0):
+    if right == 0:
+        right = len(people) - 1
+    if left <= right:
+          middle = (left + right) // 2
+          if value == func(people[middle]):
+               return people[middle]
+          if value > func(people[middle]):
+               return binary_search_func(people[middle + 1:], value, func, left, right = len(people[middle + 1:]))
           elif value < func(people[middle]):
                return binary_search_func(people[:middle], value, func, left , right = len(people[:middle]))
     return None
 
 def binary_search(people, value, func = "", left = 0 , right = 0):
-    right = len(people) - 1 
-    if func == "":         
+    right = len(people) - 1
+    if func == "":
          return binary_search_no_func(people, value, left, right)
     if func != "":
          return binary_search_func(people, value, func, left, right)
-    
 
+# 6c
 def insertion_sort(db, func = ""):
     dba = db.copy()
     if func == "":
-        for i in range(len(dba)):
-            j = i
-            while j > 0 and dba[j - 1] > dba[j]:
-                dba[j], dba[j-1] = dba[j-1], dba[j]
+        for i in range(len(dba)): # Loop through every element
+            j = i # Make a copy to not mutate the loop iterator
+            while j > 0 and dba[j - 1] > dba[j]: # Move dba[j] back until it is at zero or nothing behind it is greater than it
+                dba[j], dba[j - 1] = dba[j - 1], dba[j] # Python multiple assignment operation
                 j -= 1
     if func != "":            
         for i in range(len(dba)):
             j = i
-            while j > 0 and (func(dba[j - 1]) > func(dba[j]) or (func(dba[j - 1]) == func(dba[j]) and dba[j - 1] > dba[j] )):
-                dba[j], dba[j-1] = dba[j-1], dba[j]
+            while j > 0 and (func(dba[j - 1]) > func(dba[j]) # Run until the function no longer returns a value greater than dba[j]
+                or (func(dba[j - 1]) == func(dba[j]) and dba[j - 1] > dba[j])): # If they're the same value then fallback to sorting based on pure value
+                dba[j], dba[j - 1] = dba[j - 1], dba[j] # Python multiple assignment operation
                 j -= 1
     return dba
 
-def partion(db, low , high, func):
-    pivot = func(db[high]) 
+# 6d
+def partition(db, low, high, func):
+    pivot = func(db[high])
     j = low - 1
     for i in range(low, high):    
         if func(db[i]) < pivot or (func(db[i]) == pivot and db[i] <= db[high]):
@@ -95,15 +95,17 @@ def quicksort(db, func, low = 0, high = None):
     if high == None:
         high = len(db) - 1
     if low < high:
-        pivot = partion(db, low, high, func)
-        quicksort(db, func, low, pivot-1)
+        pivot = partition(db, low, high, func)
+        quicksort(db, func, low, pivot - 1)
         quicksort(db, func, pivot + 1, high)
 
+# 6e
 def replace_copyright(copyright_message, path_to_file, types, new_types):
     regex = re.compile("(#\sBEGIN\sCOPYRIGHT)((.|\n)*)(#\sEND\sCOPYRIGHT)")
     
     with open(copyright_message, "r", encoding="UTF-8") as b:
         content = b.read()
+        content = regex.search(content).group()
 
     if os.path.isdir(path_to_file):    
 
@@ -129,26 +131,47 @@ def replace_copyright(copyright_message, path_to_file, types, new_types):
 
     
 def main():
+    
     #6a
-    """
     print("6a")
     imdb = [
-            {'title': 'The Rock', 'actress': 'Nicholas Cage', 'score': 11},          
-            {'title': 'Raise your voice', 'actress': 'Hilary Duff', 'score': 10},    
-            {'title': 'Black Hawk Down', 'actress': 'Eric Bana', 'score': 12},
-            ]
-path_to_file
+        {'title': 'The Rock', 'actress': 'Nicholas Cage', 'score': 11},          
+        {'title': 'Raise your voice', 'actress': 'Hilary Duff', 'score': 10},    
+        {'title': 'Black Hawk Down', 'actress': 'Eric Bana', 'score': 12}
+    ]
+
     print(linear_search(imdb, 10, lambda e: e['score']))
     print(linear_search(imdb, 'Black Hawk Down', lambda e: e['title']))
     print(linear_search(imdb, 'Nicholas Cage', lambda e: e['actress']))
     print(linear_search(imdb, 11))
     print(linear_search(imdb, "The Rock"))
     print(linear_search(imdb, "Eric Bana"))
-    """
+
     #6b
-    """
     print("")
     print("6b")
+    
+    """
+    people = [
+        {"name": "Alice", "age": 28},    
+        {"name": "Bob", "age": 22},
+        {"name": "Charlie", "age": 35},    
+        {"name": "Diana", "age": 40},
+        {"name": "Eve", "age": 20},    
+        {"name": "Frank", "age": 50},    
+        {"name": "Grace", "age": 32},    
+        {"name": "Hannah", "age": 21},    
+        {"name": "Ivy", "age": 28},
+        {"name": "Jack", "age": 33},
+        {"name": "John", "age": 30},
+        {"name": "Kathy", "age": 39},
+        {"name": "Leo", "age": 45},
+        {"name": "Mandy", "age": 24},
+        {"name": "Pontus", "age": 30},
+        {"name": "Zara", "age": 25}
+    ]"""
+
+
     people = [{'name': 'Pontus', 'age': 30},
               {'name': 'Sara', 'age': 20},
               {'name': 'Xavier', 'age': 19}]
@@ -159,10 +182,8 @@ path_to_file
     print(binary_search(people, 20))
     print(binary_search(people, 30))
     print(binary_search(people, 19))
-    #{'name': 'Pontus', 'age': 30}
-    """
+    
     #6c
-    """
     print("")
     print("6c")
     db = [
@@ -175,9 +196,8 @@ path_to_file
     print(dbc)
     dbb = insertion_sort(db,lambda e: e[1])
     print(dbb)
-    """
+
     #6d
-    """
     print("")
     print("6d")
     db = [
@@ -189,12 +209,12 @@ path_to_file
     quicksort(dba,lambda e: e[1])
     print(db)
     print(dba)
-    """
-    #6e 
+ 
+    #6e
     #Regex utrycket
     #(?<=BEGIN\sCOPYRIGHT)((.|\n)*)(?=(END\sCOPYRIGHT))
-    #replace_copyright("copyright.txt", "copyright.py", ".py", ".c.py")
-    #replace_copyright("copyright.txt", "./copyrigth_test", ".py", ".c.py")
+    replace_copyright("copyright.txt", "copyright.py", ".py", ".c.py")
+    replace_copyright("copyright.txt", "./copyrigth_test", ".py", ".c.py")
 
 def copyrights():
     from_user = sys.argv
@@ -204,4 +224,3 @@ def copyrights():
 if __name__ == "__main__":
     copyrights()    
     main()
-    print("hello")
